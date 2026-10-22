@@ -1,0 +1,141 @@
+{
+  "split": {
+    "train_days": "1-63",
+    "test_days": "64-90",
+    "train_rows": 100800,
+    "test_rows": 43200
+  },
+  "headline": "spatial_holdout_by_block: scoring a new address means predicting a place the model has never seen",
+  "spatial_holdout_by_block": {
+    "model": {
+      "MAE": 56.49570287909773,
+      "RMSE": 95.1443295301321,
+      "WAPE": 0.4021731599157069,
+      "site_spearman": 0.8590939093909391,
+      "n_rows": 43200,
+      "n_sites": 100
+    },
+    "baseline_global_mean": {
+      "MAE": 100.25739172155167,
+      "RMSE": 139.78760581268332,
+      "WAPE": 0.7136973252611954,
+      "site_spearman": -0.25892401233646994,
+      "n_rows": 43200,
+      "n_sites": 100
+    },
+    "baseline_hour_x_weekday": {
+      "MAE": 96.62838535236627,
+      "RMSE": 134.45273627433528,
+      "WAPE": 0.6878636974900203,
+      "site_spearman": -0.25892401233646994,
+      "n_rows": 43200,
+      "n_sites": 100
+    },
+    "model_fold_MAE": [
+      53.84342747418969,
+      75.23965585651221,
+      46.08297683375853,
+      49.29485291628926,
+      58.01760131473895
+    ],
+    "n_folds": 5,
+    "n_groups": 20
+  },
+  "holdout_by_location": {
+    "model": {
+      "MAE": 55.04026578141583,
+      "RMSE": 91.76303419439354,
+      "WAPE": 0.3918124119861536,
+      "site_spearman": 0.8747314731473146,
+      "n_rows": 43200,
+      "n_sites": 100
+    },
+    "baseline_global_mean": {
+      "MAE": 99.41695704273222,
+      "RMSE": 138.77340740854436,
+      "WAPE": 0.7077145645686365,
+      "site_spearman": -0.10557828696028243,
+      "n_rows": 43200,
+      "n_sites": 100
+    },
+    "baseline_hour_x_weekday": {
+      "MAE": 95.4954392361111,
+      "RMSE": 132.97466894095194,
+      "WAPE": 0.6797986501259111,
+      "site_spearman": -0.10557828696028243,
+      "n_rows": 43200,
+      "n_sites": 100
+    },
+    "model_fold_MAE": [
+      58.1944793926345,
+      47.094921785482654,
+      51.598408506976234,
+      65.1598571172467,
+      53.153662104739084
+    ],
+    "n_folds": 5,
+    "n_groups": 100
+  },
+  "known_site": {
+    "model": {
+      "MAE": 45.97518746868328,
+      "RMSE": 74.98792592557513,
+      "WAPE": 0.32728128830552683,
+      "site_spearman": 0.9863666366636662,
+      "n_rows": 43200,
+      "n_sites": 100
+    },
+    "baseline_global_mean": {
+      "MAE": 99.22426960611405,
+      "RMSE": 138.51721916033623,
+      "WAPE": 0.7063428900639999,
+      "site_spearman": null,
+      "n_rows": 43200,
+      "n_sites": 100
+    },
+    "baseline_hour_x_weekday": {
+      "MAE": 95.06927865226336,
+      "RMSE": 132.28534599120107,
+      "WAPE": 0.6767649619000234,
+      "site_spearman": null,
+      "n_rows": 43200,
+      "n_sites": 100
+    },
+    "baseline_own_location_hour_x_weekday": {
+      "MAE": 45.05327417695474,
+      "RMSE": 74.83914097128026,
+      "WAPE": 0.32071850984968187,
+      "site_spearman": 0.9985478547854785,
+      "n_rows": 43200,
+      "n_sites": 100
+    }
+  },
+  "site_ratio_quantiles": {
+    "quantiles": [
+      0.1,
+      0.9
+    ],
+    "actual_over_predicted": [
+      0.6945128204259725,
+      1.395414412604695
+    ]
+  },
+  "effects": {
+    "payday_uplift": {
+      "estimated": 1.0895339374948192,
+      "planted": 1.1
+    },
+    "rain_10mm_multiplier": {
+      "estimated": 0.9541494549175522,
+      "planted": 0.9048374180359595
+    },
+    "transit_100m_over_1000m": {
+      "estimated": 1.3947189383929117,
+      "planted": 1.7160068621848583
+    },
+    "transit_monotone": {
+      "non_increasing": true,
+      "max_increase_peds_per_hour": 0.0
+    }
+  }
+}

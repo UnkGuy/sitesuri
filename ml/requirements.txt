@@ -1,0 +1,12 @@
+# Model and training
+numpy>=1.26
+pandas>=2.1
+xgboost>=2.0
+scikit-learn>=1.3   # needed by xgboost's XGBRegressor
+
+# Tests
+pytest>=8
+
+# Optional: run examples/fastapi_endpoint.py
+# fastapi>=0.110
+# uvicorn>=0.29
