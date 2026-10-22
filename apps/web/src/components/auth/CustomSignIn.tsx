@@ -5,17 +5,19 @@ import { useRouter } from "next/navigation";
 import { useAuth, useSignIn } from "@clerk/nextjs";
 import { ArrowLeft, ArrowRight, LoaderCircle, MapPinned } from "lucide-react";
 import { useState, type FormEvent } from "react";
+import { signInSchema } from "@/lib/validation/auth";
+import { useValidatedForm } from "@/hooks/useValidatedForm";
 import AuthInput from "./AuthInput";
 import GoogleAuthButton from "./GoogleAuthButton";
 import { clerkErrorMessage } from "@/lib/auth/clerk-error-message";
+import { createInputFilter } from "@/lib/validation/input-filters";
 
 /** Presentation is custom; passwords, sessions and OAuth stay with Clerk. */
 export default function CustomSignIn() {
   const { signIn, errors, fetchStatus } = useSignIn();
   const { isSignedIn } = useAuth();
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const form = useValidatedForm(signInSchema, { email: "", password: "" });
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
@@ -49,11 +51,14 @@ export default function CustomSignIn() {
   const submitPassword = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError("");
+    const validation = form.validateSubmit();
+    if (!validation.success) return;
+
     setBusy(true);
     try {
       const result = await signIn.password({
-        emailAddress: email.trim(),
-        password,
+        emailAddress: validation.data.email,
+        password: validation.data.password,
       });
       if (result.error) {
         setError(clerkErrorMessage(result.error));
@@ -198,29 +203,38 @@ export default function CustomSignIn() {
         )
       ) : (
         <>
-          <form onSubmit={submitPassword} className="space-y-5">
+          <form noValidate onSubmit={submitPassword} className="space-y-5">
             <AuthInput
               id="login-email"
               label="Email"
               type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              maxLength={254}
+              value={form.values.email}
+              {...createInputFilter("email", form.values.email, (value) =>
+                form.onChange("email", value),
+              )}
+              onBlur={() => form.onBlur("email")}
               autoComplete="email"
               placeholder="you@example.com"
               required
-              error={errors.fields.identifier?.message}
+              error={form.errors.email}
             />
             <div>
               <AuthInput
                 id="login-password"
                 label="Password"
                 type="password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
+                value={form.values.password}
+                {...createInputFilter(
+                  "password",
+                  form.values.password,
+                  (value) => form.onChange("password", value),
+                )}
+                onBlur={() => form.onBlur("password")}
                 autoComplete="current-password"
                 placeholder="Enter your password"
                 required
-                error={errors.fields.password?.message}
+                error={form.errors.password}
               />
               <div className="mt-2 text-right">
                 <Link

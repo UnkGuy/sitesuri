@@ -5,18 +5,25 @@ import { useRouter } from "next/navigation";
 import { useAuth, useSignUp } from "@clerk/nextjs";
 import { ArrowLeft, ArrowRight, LoaderCircle, MapPinned } from "lucide-react";
 import { useState, type FormEvent } from "react";
+import { signUpSchema } from "@/lib/validation/auth";
+import { useValidatedForm } from "@/hooks/useValidatedForm";
 import AuthInput from "./AuthInput";
 import GoogleAuthButton from "./GoogleAuthButton";
 import { clerkErrorMessage } from "@/lib/auth/clerk-error-message";
+import { createInputFilter } from "@/lib/validation/input-filters";
+import PasswordRequirements from "./PasswordRequirements";
+import VerificationCodeInput from "./VerificationCodeInput";
 
 /** Custom SiteSuri presentation; Clerk retains sign-up, verification, and session handling. */
 export default function CustomSignUp() {
   const { signUp, errors, fetchStatus } = useSignUp();
   const { isSignedIn } = useAuth();
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const form = useValidatedForm(signUpSchema, {
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
   const [code, setCode] = useState("");
   const [step, setStep] = useState<"form" | "verify">("form");
   const [error, setError] = useState("");
@@ -32,16 +39,14 @@ export default function CustomSignUp() {
   const register = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError("");
-    if (password !== confirmPassword) {
-      setError("Passwords don't match.");
-      return;
-    }
+    const validation = form.validateSubmit();
+    if (!validation.success) return;
 
     setBusy(true);
     try {
       const result = await signUp.password({
-        emailAddress: email.trim(),
-        password,
+        emailAddress: validation.data.email,
+        password: validation.data.password,
       });
       if (result.error) {
         setError(clerkErrorMessage(result.error));
@@ -64,6 +69,10 @@ export default function CustomSignUp() {
   const verify = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError("");
+    if (!/^[0-9]{6}$/.test(code)) {
+      setError("Enter the six-digit verification code.");
+      return;
+    }
     setBusy(true);
     try {
       const result = await signUp.verifications.verifyEmailCode({
@@ -139,19 +148,20 @@ export default function CustomSignUp() {
           <p className="mb-6 text-center text-sm leading-6 text-[#68746D]">
             We sent a code to{" "}
             <strong className="text-brand-black">
-              {signUp.emailAddress ?? email}
+              {signUp.emailAddress ?? form.values.email}
             </strong>
             .
           </p>
           <form onSubmit={verify} className="space-y-5">
-            <AuthInput
+            <VerificationCodeInput
               id="signup-code"
               label="Email verification code"
               value={code}
-              onChange={(event) => setCode(event.target.value)}
-              autoComplete="one-time-code"
-              inputMode="numeric"
-              required
+              onChange={(nextCode) => {
+                setCode(nextCode);
+                setError("");
+              }}
+              disabled={pending}
               error={errors.fields.code?.message}
             />
             {error && (
@@ -164,7 +174,7 @@ export default function CustomSignUp() {
             )}
             <button
               type="submit"
-              disabled={pending}
+              disabled={pending || code.length !== 6}
               className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand-yellow px-5 text-sm font-extrabold text-brand-black transition hover:bg-[#FDE065] disabled:opacity-60"
             >
               {pending ? (
@@ -182,6 +192,7 @@ export default function CustomSignUp() {
             disabled={pending}
             onClick={async () => {
               setError("");
+              setCode("");
               const result = await signUp.verifications.sendEmailCode();
               if (result.error) setError(clerkErrorMessage(result.error));
             }}
@@ -192,41 +203,63 @@ export default function CustomSignUp() {
         </>
       ) : (
         <>
-          <form onSubmit={register} className="space-y-5">
+          <form noValidate onSubmit={register} className="space-y-5">
             <AuthInput
               id="signup-email"
               label="Email address"
               type="email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              value={form.values.email}
+              {...createInputFilter("email", form.values.email, (value) =>
+                form.onChange("email", value),
+              )}
+              onBlur={() => form.onBlur("email")}
               autoComplete="email"
+              autoCapitalize="none"
+              spellCheck={false}
+              maxLength={254}
               placeholder="you@example.com"
               required
-              error={errors.fields.emailAddress?.message}
+              error={form.errors.email}
             />
-            <AuthInput
-              id="signup-password"
-              label="Password"
-              type="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              autoComplete="new-password"
-              placeholder="Create a password"
-              minLength={8}
-              required
-              error={errors.fields.password?.message}
-            />
+
+            <div>
+              <AuthInput
+                id="signup-password"
+                label="Password"
+                type="password"
+                value={form.values.password}
+                onChange={(event) =>
+                  form.onChange("password", event.target.value)
+                }
+                onBlur={() => form.onBlur("password")}
+                autoComplete="new-password"
+                placeholder="Create a password"
+                required
+                error={form.errors.password}
+              />
+
+              {form.values.password.length > 0 && (
+                <PasswordRequirements password={form.values.password} />
+              )}
+            </div>
+
             <AuthInput
               id="signup-confirm"
               label="Confirm password"
               type="password"
-              value={confirmPassword}
-              onChange={(event) => setConfirmPassword(event.target.value)}
+              value={form.values.confirmPassword}
+              {...createInputFilter(
+                "password",
+                form.values.confirmPassword,
+                (value) => form.onChange("confirmPassword", value),
+              )}
+              onBlur={() => form.onBlur("confirmPassword")}
               autoComplete="new-password"
               placeholder="Confirm your password"
-              minLength={8}
               required
+              error={form.errors.confirmPassword}
             />
+
             {error && (
               <p
                 role="alert"
