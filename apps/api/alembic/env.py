@@ -10,6 +10,14 @@ from app.models.base import Base
 from app.models.users import User
   # Register model metadata
 
+from app.models.location_analysis import (
+    Dataset,
+    Location,
+    ModelRun,
+    LocationScore,
+    UserAnalysis,
+)
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
