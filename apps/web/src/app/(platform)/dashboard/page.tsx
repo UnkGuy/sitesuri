@@ -1,12 +1,19 @@
+import { Suspense } from "react";
 import { auth } from "@clerk/nextjs/server";
+
 import DashboardClient from "@/components/dashboard/DashboardClient";
 
-export const metadata = {
-  title: "Location Explorer | SiteSuri",
-  description: "Explore business location criteria and map selection in SiteSuri.",
-};
-
-export default async function DashboardPage() {
+async function DashboardContent() {
+  // Protect the dashboard from unauthenticated users.
   await auth.protect();
+
   return <DashboardClient />;
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={<div>Loading dashboard...</div>}>
+      <DashboardContent />
+    </Suspense>
+  );
 }

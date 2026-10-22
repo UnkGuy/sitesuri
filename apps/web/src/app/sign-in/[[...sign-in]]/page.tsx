@@ -1,10 +1,11 @@
+import { Suspense } from "react";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 import AuthShell from "@/components/auth/AuthShell";
 import CustomSignIn from "@/components/auth/CustomSignIn";
 
-export default async function SignInPage() {
+async function SignInContent() {
   const { userId } = await auth();
 
   // Already authenticated? Go straight to dashboard.
@@ -16,5 +17,13 @@ export default async function SignInPage() {
     <AuthShell mode="sign-in">
       <CustomSignIn />
     </AuthShell>
+  );
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense fallback={<div>Loading sign-in...</div>}>
+      <SignInContent />
+    </Suspense>
   );
 }
