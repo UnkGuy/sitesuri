@@ -113,20 +113,6 @@ export default function CustomSignUp() {
     }
   };
 
-  if (isSignedIn) {
-    return (
-      <div className="text-center">
-        <h2 className="text-xl font-bold">You're already signed in.</h2>
-        <Link
-          href="/"
-          className="mt-3 inline-block font-semibold text-brand-green underline"
-        >
-          Return home
-        </Link>
-      </div>
-    );
-  }
-
   return (
     <div className="w-full">
       <div className="mb-7 text-center">

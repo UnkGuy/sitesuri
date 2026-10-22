@@ -3,14 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/copy-maplibre-worker.mjs",
     "dev": "next dev",
+    "prebuild": "node scripts/copy-maplibre-worker.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.9.19",
+    "@radix-ui/react-select": "^2.4.1",
+    "@tanstack/react-query": "^5.104.5",
+    "axios": "^1.20.0",
     "lucide-react": "^1.61.0",
+    "maplibre-gl": "^6.15.0",
     "next": "16.4.2",
     "react": "19.3.0",
     "react-dom": "19.3.0"

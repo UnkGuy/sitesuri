@@ -25,6 +25,7 @@ export default function CustomSignIn() {
   const isVerifying =
     signIn.status === "needs_client_trust" ||
     signIn.status === "needs_second_factor";
+  const INVALID_LOGIN_MESSAGE = "Invalid login credentials.";
   const supportsEmailCode =
     signIn.supportedSecondFactors?.some(
       (factor) => factor.strategy === "email_code",
@@ -39,7 +40,7 @@ export default function CustomSignIn() {
           );
           return;
         }
-        const url = decorateUrl("/"); // Change to /dashboard after the protected dashboard exists.
+        const url = decorateUrl("/dashboard"); // Change to /dashboard after the protected dashboard exists.
         if (url.startsWith("http://") || url.startsWith("https://"))
           window.location.assign(url);
         else router.replace(url);
@@ -61,7 +62,7 @@ export default function CustomSignIn() {
         password: validation.data.password,
       });
       if (result.error) {
-        setError(clerkErrorMessage(result.error));
+        setError(INVALID_LOGIN_MESSAGE);
         return;
       }
       if (signIn.status === "complete") await finish();
@@ -107,20 +108,6 @@ export default function CustomSignIn() {
       setBusy(false);
     }
   };
-
-  if (isSignedIn) {
-    return (
-      <div className="text-center">
-        <h2 className="text-xl font-bold">You're already signed in.</h2>
-        <Link
-          href="/"
-          className="mt-3 inline-block font-semibold text-brand-green underline"
-        >
-          Return home
-        </Link>
-      </div>
-    );
-  }
 
   return (
     <div className="w-full">

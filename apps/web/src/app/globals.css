@@ -39,3 +39,12 @@ body {
     scroll-behavior: auto;
   }
 }
+
+/* Global button cursor behavior */
+button:not(:disabled) {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
