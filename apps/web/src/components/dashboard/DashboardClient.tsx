@@ -1,32 +1,24 @@
 "use client";
 
-import { useMemo, useState, type FormEvent } from "react";
-import { useUser, UserButton } from "@clerk/nextjs";
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from "@tanstack/react-query";
-import {
-  ArrowRight,
-  MapPinned,
-  Menu,
-  X,
-  Search,
-  ShieldCheck,
-  SlidersHorizontal,
-  Sparkles,
-} from "lucide-react";
-import { useClerkApi } from "@/lib/api/client";
-import {
-  getCurrentUser,
-  syncUser,
-  type UserSyncPayload,
-} from "@/features/users/user-service";
+import { useState, type FormEvent } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import { useSiteSuriUser } from "@/features/users/use-user";
+
 import MapWorkspace, { type GeoPoint } from "./MapWorkspace";
 import DashboardSidebar from "./DashboardSidebar";
 import CustomSelect from "@/components/ui/CustomSelect";
 import AccountMenu from "./AccountMenu";
+
+import {
+  Menu,
+  X,
+  MapPinned,
+  SlidersHorizontal,
+  Search,
+  ShieldCheck,
+  ArrowRight,
+} from "lucide-react";
 
 type PlaceResult = { id: string; name: string; lat: number; lng: number };
 const initialPoint: GeoPoint = { lat: 14.5995, lng: 120.9842 }; // Manila center, not a scored candidate.
@@ -43,10 +35,16 @@ const RADIUS_OPTIONS = [250, 500, 1000, 2000].map((meters) => ({
 }));
 
 function DashboardContent() {
-  const { user, isLoaded } = useUser();
+  const {
+    user: appUser,
+    isLoading: accountLoading,
+    isError: accountError,
+    retrySync,
+  } = useSiteSuriUser();
+
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
-  const api = useClerkApi();
+
   const [point, setPoint] = useState<GeoPoint>(initialPoint);
   const [radius, setRadius] = useState(500);
   const [category, setCategory] = useState("bakery");
@@ -55,29 +53,6 @@ function DashboardContent() {
   const [searching, setSearching] = useState(false);
   const [searchMessage, setSearchMessage] = useState("");
   const hasBackend = Boolean(process.env.NEXT_PUBLIC_API_URL);
-
-  const profilePayload: UserSyncPayload | null = useMemo(() => {
-    const email = user?.primaryEmailAddress?.emailAddress;
-    if (!email) return null;
-    return {
-      email,
-      first_name: user?.firstName ?? null,
-      last_name: user?.lastName ?? null,
-      username: user?.username ?? null,
-    };
-  }, [user]);
-
-  const account = useQuery({
-    queryKey: ["current-user", user?.id],
-    enabled: Boolean(hasBackend && user?.id && profilePayload),
-    retry: 1,
-    staleTime: 300_000,
-    queryFn: async () => {
-      if (!profilePayload) throw new Error("Clerk profile is unavailable.");
-      await syncUser(api, profilePayload);
-      return getCurrentUser(api);
-    },
-  });
 
   async function searchLocation(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -318,23 +293,47 @@ function DashboardContent() {
                   Analysis activates after geographic scoring integration.
                 </p>
               </section>
+
               <section className="rounded-2xl border border-[#E5EAE4] bg-white p-5 shadow-sm">
                 <h3 className="text-sm font-extrabold">Account connection</h3>
+
                 <p className="mt-1 text-xs text-[#78847C]">
                   Clerk session → FastAPI → Supabase
                 </p>
-                <p
+
+                <div
                   role="status"
                   className="mt-3 text-xs leading-5 text-[#425348]"
                 >
-                  {!hasBackend
-                    ? "Backend not connected. Add NEXT_PUBLIC_API_URL when FastAPI is running."
-                    : account.isPending
-                      ? "Syncing your profile..."
-                      : account.isError
-                        ? "Profile sync unavailable. Confirm the API, Clerk keys, database, and CORS."
-                        : `Connected as ${account.data?.email}`}
-                </p>
+                  {!hasBackend ? (
+                    <p>Backend not configured. Add NEXT_PUBLIC_API_URL.</p>
+                  ) : accountLoading || (!appUser && !accountError) ? (
+                    <p>Synchronizing your profile...</p>
+                  ) : accountError ? (
+                    <div className="space-y-2">
+                      <p className="text-red-600">
+                        Unable to synchronize your account.
+                      </p>
+
+                      <button
+                        type="button"
+                        onClick={retrySync}
+                        className="font-semibold text-brand-green hover:underline"
+                      >
+                        Retry connection
+                      </button>
+                    </div>
+                  ) : appUser ? (
+                    <div className="space-y-1">
+                      <p className="font-semibold text-brand-green">
+                        Connected to FastAPI and Supabase
+                      </p>
+                      <p>{appUser.email ?? "No email available"}</p>
+                    </div>
+                  ) : (
+                    <p>Waiting for account information...</p>
+                  )}
+                </div>
               </section>
             </div>
 
