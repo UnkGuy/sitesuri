@@ -1,0 +1,337 @@
+parameter,factor,business_type,spearman,band_changes,mean_abs_score_change
+weights.ped,0.8,food stall,0.9964228482288953,4,1.4789180453128956
+weights.ped,0.8,sari-sari store,0.9952902641234382,4,1.6072796956869515
+weights.ped,0.8,general retail,0.9969563324646427,7,1.6942162096381521
+weights.ped,1.2,food stall,0.9978273264712062,5,1.3007516532476593
+weights.ped,1.2,sari-sari store,0.9979230820022448,4,1.3644685786350343
+weights.ped,1.2,general retail,0.996494471589613,9,1.452212998651017
+weights.fit,0.8,food stall,0.9989316688173334,1,0.679894693123824
+weights.fit,0.8,sari-sari store,0.9991535582985338,0,0.5104373258518957
+weights.fit,0.8,general retail,0.9995197538001164,3,0.47565072178179935
+weights.fit,1.2,food stall,0.9991477357980976,6,0.6240413190983353
+weights.fit,1.2,sari-sari store,0.9993277028446572,1,0.47834173261043034
+weights.fit,1.2,general retail,0.9985953875889888,0,0.44651750857526784
+weights.comp,0.8,food stall,0.9981634306635058,7,1.0029899310067514
+weights.comp,0.8,sari-sari store,0.9984393101750972,2,0.7880507289010821
+weights.comp,0.8,general retail,0.9959782465154806,4,0.8971711306317477
+weights.comp,1.2,food stall,0.9976352669327493,2,0.9286031193072156
+weights.comp,1.2,sari-sari store,0.9986012677917777,1,0.7321103716001142
+weights.comp,1.2,general retail,0.9979349296859827,3,0.8206530376575679
+weights.walk,0.8,food stall,0.9985595534615731,5,0.6011773630914315
+weights.walk,0.8,sari-sari store,0.9978750607768633,2,0.575436512925667
+weights.walk,0.8,general retail,0.9989435393831708,3,0.5758526534370065
+weights.walk,1.2,food stall,0.9989706778266566,0,0.5692361031674288
+weights.walk,1.2,sari-sari store,0.9982050593847572,0,0.5380423054996635
+weights.walk,1.2,general retail,0.9981390358218939,2,0.5402796563457771
+weights.safety,0.8,food stall,0.9996158809230863,2,0.4324279716714299
+weights.safety,0.8,sari-sari store,0.9995017414440974,1,0.37282206716436633
+weights.safety,0.8,general retail,0.9995917912598495,0,0.36866933318065365
+weights.safety,1.2,food stall,0.999135732076944,1,0.41129285575255425
+weights.safety,1.2,sari-sari store,0.9984513154814426,1,0.36111942986815604
+weights.safety,1.2,general retail,0.999195649303096,0,0.35808148417382474
+geo_floor,0.8,food stall,0.9996999069711611,0,0.2939183699646524
+geo_floor,0.8,sari-sari store,0.9997118726477102,0,0.26332166373762195
+geo_floor,0.8,general retail,0.9995798168001248,1,0.29072215235712523
+geo_floor,1.2,food stall,0.999783933019236,0,0.27322531425671576
+geo_floor,1.2,sari-sari store,0.9997839044857826,0,0.2487536946413367
+geo_floor,1.2,general retail,0.9994717696915855,1,0.2718774854419011
+caps.low_ped_below,0.8,food stall,1.0,0,0.0
+caps.low_ped_below,0.8,sari-sari store,0.998634400506318,0,0.08337460891168803
+caps.low_ped_below,0.8,general retail,0.9999999999999999,0,0.0
+caps.low_ped_below,1.2,food stall,0.9997389182859237,0,0.07158616152143082
+caps.low_ped_below,1.2,sari-sari store,0.9999729876958905,0,0.060554575440737037
+caps.low_ped_below,1.2,general retail,0.9999999999999999,0,0.0
+caps.low_ped_cap,0.8,food stall,0.9979048542313708,4,0.4069289397709601
+caps.low_ped_cap,0.8,sari-sari store,0.9992284978900451,5,0.4870761216597682
+caps.low_ped_cap,0.8,general retail,0.9986551064443622,5,0.4403737712748406
+caps.low_ped_cap,1.2,food stall,1.0,0,0.0
+caps.low_ped_cap,1.2,sari-sari store,0.998634400506318,0,0.08337460891168803
+caps.low_ped_cap,1.2,general retail,0.9999999999999999,0,0.0
+caps.high_flood_cap,0.8,food stall,0.9889627961516563,9,0.7659919338588125
+caps.high_flood_cap,0.8,sari-sari store,0.989289227616456,9,0.9156187792216238
+caps.high_flood_cap,0.8,general retail,0.9860112332400544,9,0.8965000070925481
+caps.high_flood_cap,1.2,food stall,0.9921473956864496,0,0.3962079009295703
+caps.high_flood_cap,1.2,sari-sari store,0.9922814277857992,0,0.6431997878343472
+caps.high_flood_cap,1.2,general retail,0.9901452527222241,0,0.6407059599199691
+caps.seismic_fault_m,0.8,food stall,1.0,0,0.0
+caps.seismic_fault_m,0.8,sari-sari store,0.9999999999999999,0,0.0
+caps.seismic_fault_m,0.8,general retail,0.9999999999999999,0,0.0
+caps.seismic_fault_m,1.2,food stall,1.0,0,0.0
+caps.seismic_fault_m,1.2,sari-sari store,0.9999999999999999,0,0.0
+caps.seismic_fault_m,1.2,general retail,0.9999999999999999,0,0.0
+caps.crowded_comp_below,0.8,food stall,1.0,0,0.0
+caps.crowded_comp_below,0.8,sari-sari store,0.9999999999999999,0,0.0
+caps.crowded_comp_below,0.8,general retail,0.9999999999999999,0,0.0
+caps.crowded_comp_below,1.2,food stall,1.0,0,0.0
+caps.crowded_comp_below,1.2,sari-sari store,0.9999999999999999,0,0.0
+caps.crowded_comp_below,1.2,general retail,0.9999999999999999,0,0.0
+business_fit.food stall.school,0.8,food stall,0.9998319479038502,1,0.325964155360993
+business_fit.food stall.school,0.8,sari-sari store,0.9999999999999999,0,0.0
+business_fit.food stall.school,0.8,general retail,0.9999999999999999,0,0.0
+business_fit.food stall.school,1.2,food stall,0.9996999069711611,2,0.2958563040463822
+business_fit.food stall.school,1.2,sari-sari store,0.9999999999999999,0,0.0
+business_fit.food stall.school,1.2,general retail,0.9999999999999999,0,0.0
+business_fit.food stall.market,0.8,food stall,0.9992317618461724,1,0.1848978297698847
+business_fit.food stall.market,0.8,sari-sari store,0.9999999999999999,0,0.0
+business_fit.food stall.market,0.8,general retail,0.9999999999999999,0,0.0
+business_fit.food stall.market,1.2,food stall,0.9998559553461573,1,0.1721265024875587
+business_fit.food stall.market,1.2,sari-sari store,0.9999999999999999,0,0.0
+business_fit.food stall.market,1.2,general retail,0.9999999999999999,0,0.0
+business_fit.food stall.office,0.8,food stall,0.9995198511538578,0,0.37549142786896234
+business_fit.food stall.office,0.8,sari-sari store,0.9999999999999999,0,0.0
+business_fit.food stall.office,0.8,general retail,0.9999999999999999,0,0.0
+business_fit.food stall.office,1.2,food stall,0.9997599255769289,3,0.33547511360669147
+business_fit.food stall.office,1.2,sari-sari store,0.9999999999999999,0,0.0
+business_fit.food stall.office,1.2,general retail,0.9999999999999999,0,0.0
+business_fit.food stall.shop,0.8,food stall,0.9997479218557753,7,0.6593738990044161
+business_fit.food stall.shop,0.8,sari-sari store,0.9999999999999999,0,0.0
+business_fit.food stall.shop,0.8,general retail,0.9999999999999999,0,0.0
+business_fit.food stall.shop,1.2,food stall,0.9995198511538578,0,0.5708890243372374
+business_fit.food stall.shop,1.2,sari-sari store,0.9999999999999999,0,0.0
+business_fit.food stall.shop,1.2,general retail,0.9999999999999999,0,0.0
+business_fit.sari-sari store.school,0.8,food stall,1.0,0,0.0
+business_fit.sari-sari store.school,0.8,sari-sari store,0.9997298614360185,0,0.3225368326274127
+business_fit.sari-sari store.school,0.8,general retail,0.9999999999999999,0,0.0
+business_fit.sari-sari store.school,1.2,food stall,1.0,0,0.0
+business_fit.sari-sari store.school,1.2,sari-sari store,0.9994237452954206,2,0.305379030871191
+business_fit.sari-sari store.school,1.2,general retail,0.9999999999999999,0,0.0
+business_fit.sari-sari store.market,0.8,food stall,1.0,0,0.0
+business_fit.sari-sari store.market,0.8,sari-sari store,0.9991535582985338,0,0.30744353882944064
+business_fit.sari-sari store.market,0.8,general retail,0.9999999999999999,0,0.0
+business_fit.sari-sari store.market,1.2,food stall,1.0,0,0.0
+business_fit.sari-sari store.market,1.2,sari-sari store,0.9998199204048187,2,0.30238411423307315
+business_fit.sari-sari store.market,1.2,general retail,0.9999999999999999,0,0.0
+business_fit.sari-sari store.office,0.8,food stall,1.0,0,0.0
+business_fit.sari-sari store.office,0.8,sari-sari store,0.9993096403982692,2,0.20522320712015954
+business_fit.sari-sari store.office,0.8,general retail,0.9999999999999999,0,0.0
+business_fit.sari-sari store.office,1.2,food stall,1.0,0,0.0
+business_fit.sari-sari store.office,1.2,sari-sari store,0.9997959097921281,0,0.19876350921794247
+business_fit.sari-sari store.office,1.2,general retail,0.9999999999999999,0,0.0
+business_fit.sari-sari store.shop,0.8,food stall,1.0,0,0.0
+business_fit.sari-sari store.shop,0.8,sari-sari store,0.9994237452954206,3,0.6670088942104769
+business_fit.sari-sari store.shop,0.8,general retail,0.9999999999999999,0,0.0
+business_fit.sari-sari store.shop,1.2,food stall,1.0,0,0.0
+business_fit.sari-sari store.shop,1.2,sari-sari store,0.99824107833085,1,0.5065542103293416
+business_fit.sari-sari store.shop,1.2,general retail,0.9999999999999999,0,0.0
+business_fit.general retail.school,0.8,food stall,1.0,0,0.0
+business_fit.general retail.school,0.8,sari-sari store,0.9999999999999999,0,0.0
+business_fit.general retail.school,0.8,general retail,0.9993997382858927,0,0.15461039869761045
+business_fit.general retail.school,1.2,food stall,1.0,0,0.0
+business_fit.general retail.school,1.2,sari-sari store,0.9999999999999999,0,0.0
+business_fit.general retail.school,1.2,general retail,0.9998079162514855,0,0.15171496550797284
+business_fit.general retail.market,0.8,food stall,1.0,0,0.0
+business_fit.general retail.market,0.8,sari-sari store,0.9999999999999999,0,0.0
+business_fit.general retail.market,0.8,general retail,0.9992916351776274,3,0.37448613610735904
+business_fit.general retail.market,1.2,food stall,1.0,0,0.0
+business_fit.general retail.market,1.2,sari-sari store,0.9999999999999999,0,0.0
+business_fit.general retail.market,1.2,general retail,0.9998799476571785,0,0.36625760796553597
+business_fit.general retail.office,0.8,food stall,1.0,0,0.0
+business_fit.general retail.office,0.8,sari-sari store,0.9999999999999999,0,0.0
+business_fit.general retail.office,0.8,general retail,0.9991355540148718,1,0.2529204106834598
+business_fit.general retail.office,1.2,food stall,1.0,0,0.0
+business_fit.general retail.office,1.2,sari-sari store,0.9999999999999999,0,0.0
+business_fit.general retail.office,1.2,general retail,0.9998079162514855,0,0.24572566048435132
+business_fit.general retail.shop,0.8,food stall,1.0,0,0.0
+business_fit.general retail.shop,0.8,sari-sari store,0.9999999999999999,0,0.0
+business_fit.general retail.shop,0.8,general retail,0.9996398429715355,3,0.6497461513872267
+business_fit.general retail.shop,1.2,food stall,1.0,0,0.0
+business_fit.general retail.shop,1.2,sari-sari store,0.9999999999999999,0,0.0
+business_fit.general retail.shop,1.2,general retail,0.999111541528294,3,0.48975618881274163
+competition.food stall.c_star,0.8,food stall,0.9851017713453792,10,1.7652553222648775
+competition.food stall.c_star,0.8,sari-sari store,0.9999999999999999,0,0.0
+competition.food stall.c_star,0.8,general retail,0.9999999999999999,0,0.0
+competition.food stall.c_star,1.2,food stall,0.9899768928367795,6,1.4971453873977554
+competition.food stall.c_star,1.2,sari-sari store,0.9999999999999999,0,0.0
+competition.food stall.c_star,1.2,general retail,0.9999999999999999,0,0.0
+competition.food stall.sigma_left,0.8,food stall,0.9987035981154159,1,0.5478192520665468
+competition.food stall.sigma_left,0.8,sari-sari store,0.9999999999999999,0,0.0
+competition.food stall.sigma_left,0.8,general retail,0.9999999999999999,0,0.0
+competition.food stall.sigma_left,1.2,food stall,0.9990156948654084,0,0.3062117318883569
+competition.food stall.sigma_left,1.2,sari-sari store,0.9999999999999999,0,0.0
+competition.food stall.sigma_left,1.2,general retail,0.9999999999999999,0,0.0
+competition.food stall.sigma_right,0.8,food stall,0.9934432634709478,5,0.6588144206359607
+competition.food stall.sigma_right,0.8,sari-sari store,0.9999999999999999,0,0.0
+competition.food stall.sigma_right,0.8,general retail,0.9999999999999999,0,0.0
+competition.food stall.sigma_right,1.2,food stall,0.9968070101731538,0,0.3929777291439014
+competition.food stall.sigma_right,1.2,sari-sari store,0.9999999999999999,0,0.0
+competition.food stall.sigma_right,1.2,general retail,0.9999999999999999,0,0.0
+competition.sari-sari store.c_star,0.8,food stall,1.0,0,0.0
+competition.sari-sari store.c_star,0.8,sari-sari store,0.9908255248409534,2,1.3453795907692017
+competition.sari-sari store.c_star,0.8,general retail,0.9999999999999999,0,0.0
+competition.sari-sari store.c_star,1.2,food stall,1.0,0,0.0
+competition.sari-sari store.c_star,1.2,sari-sari store,0.9949217554158936,2,1.306464002400096
+competition.sari-sari store.c_star,1.2,general retail,0.9999999999999999,0,0.0
+competition.sari-sari store.sigma_left,0.8,food stall,1.0,0,0.0
+competition.sari-sari store.sigma_left,0.8,sari-sari store,0.9982592305799162,2,0.7269361427171817
+competition.sari-sari store.sigma_left,0.8,general retail,0.9999999999999999,0,0.0
+competition.sari-sari store.sigma_left,1.2,food stall,1.0,0,0.0
+competition.sari-sari store.sigma_left,1.2,sari-sari store,0.9973348219913201,0,0.4056738859403399
+competition.sari-sari store.sigma_left,1.2,general retail,0.9999999999999999,0,0.0
+competition.sari-sari store.sigma_right,0.8,food stall,1.0,0,0.0
+competition.sari-sari store.sigma_right,0.8,sari-sari store,0.9974428697484286,1,0.37683930363324636
+competition.sari-sari store.sigma_right,0.8,general retail,0.9999999999999999,0,0.0
+competition.sari-sari store.sigma_right,1.2,food stall,1.0,0,0.0
+competition.sari-sari store.sigma_right,1.2,sari-sari store,0.9983552730306794,0,0.21919341890206925
+competition.sari-sari store.sigma_right,1.2,general retail,0.9999999999999999,0,0.0
+competition.general retail.c_star,0.8,food stall,1.0,0,0.0
+competition.general retail.c_star,0.8,sari-sari store,0.9999999999999999,0,0.0
+competition.general retail.c_star,0.8,general retail,0.9893633624260177,6,1.6933297083861343
+competition.general retail.c_star,1.2,food stall,1.0,0,0.0
+competition.general retail.c_star,1.2,sari-sari store,0.9999999999999999,0,0.0
+competition.general retail.c_star,1.2,general retail,0.9881148180606744,9,1.6268430883441796
+competition.general retail.sigma_left,0.8,food stall,1.0,0,0.0
+competition.general retail.sigma_left,0.8,sari-sari store,0.9999999999999999,0,0.0
+competition.general retail.sigma_left,0.8,general retail,0.9978990840006241,3,0.7649485862086699
+competition.general retail.sigma_left,1.2,food stall,1.0,0,0.0
+competition.general retail.sigma_left,1.2,sari-sari store,0.9999999999999999,0,0.0
+competition.general retail.sigma_left,1.2,general retail,0.9991356231316852,2,0.4287698194604877
+competition.general retail.sigma_right,0.8,food stall,1.0,0,0.0
+competition.general retail.sigma_right,0.8,sari-sari store,0.9999999999999999,0,0.0
+competition.general retail.sigma_right,0.8,general retail,0.9926047756821973,1,0.8411102835551333
+competition.general retail.sigma_right,1.2,food stall,1.0,0,0.0
+competition.general retail.sigma_right,1.2,sari-sari store,0.9999999999999999,0,0.0
+competition.general retail.sigma_right,1.2,general retail,0.9946696759787266,2,0.5288304440163681
+walkability.sidewalk,0.8,food stall,0.9992917804519401,8,0.6790769937089587
+walkability.sidewalk,0.8,sari-sari store,0.9989435330416043,2,0.709311204533158
+walkability.sidewalk,0.8,general retail,0.999027576023146,5,0.7107020637175725
+walkability.sidewalk,1.2,food stall,0.9991957506827118,1,0.6064243517455209
+walkability.sidewalk,1.2,sari-sari store,0.99888941936052,1,0.6284496242615508
+walkability.sidewalk,1.2,general retail,0.998451198147405,3,0.629851275149059
+walkability.paved,0.8,food stall,0.9993998139423222,6,0.586852634377118
+walkability.paved,0.8,sari-sari store,0.9994477559081112,2,0.6380210214074334
+walkability.paved,0.8,general retail,0.999195649303096,3,0.6250131216193285
+walkability.paved,1.2,food stall,0.9991717432404046,0,0.534654811073451
+walkability.paved,1.2,sari-sari store,0.998060983600386,1,0.5755999913827692
+walkability.paved,1.2,general retail,0.9990034853386941,4,0.5641847150483005
+walkability.crossing,0.8,food stall,0.9996518920865468,1,0.1905405189658053
+walkability.crossing,0.8,sari-sari store,0.9993036922319664,2,0.21884220428561732
+walkability.crossing,0.8,general retail,0.9996158325029711,0,0.2078923106668594
+walkability.crossing,1.2,food stall,0.9996038772019327,0,0.18056465457039614
+walkability.crossing,1.2,sari-sari store,0.9994357506017659,0,0.2062749257113105
+walkability.crossing,1.2,general retail,0.9998559371886142,3,0.1964833492391025
+safety.flood_class_score.0,0.8,food stall,0.9993277916154009,2,0.2977579524717998
+safety.flood_class_score.0,0.8,sari-sari store,0.9990515807987129,1,0.3364893069362847
+safety.flood_class_score.0,0.8,general retail,0.999519790628714,2,0.33377323829493505
+safety.flood_class_score.0,1.2,food stall,0.9996999069711611,0,0.271763205538319
+safety.flood_class_score.0,1.2,sari-sari store,0.9990395754923675,1,0.30704811906831286
+safety.flood_class_score.0,1.2,general retail,0.9995438010972784,3,0.304615789492247
+safety.flood_class_score.1,0.8,food stall,0.9997239144134682,3,0.1905112697614695
+safety.flood_class_score.1,0.8,sari-sari store,0.9996038248906015,0,0.19585501222504598
+safety.flood_class_score.1,0.8,general retail,0.9995558063315604,0,0.1989356412042553
+safety.flood_class_score.1,1.2,food stall,0.9991477357980976,0,0.17684470595862375
+safety.flood_class_score.1,1.2,sari-sari store,0.9987274375273869,0,0.18233473762070923
+safety.flood_class_score.1,1.2,general retail,0.9991836440688139,1,0.18522553583731863
+safety.flood_class_score.2,0.8,food stall,0.999675899528854,1,0.11629027252929217
+safety.flood_class_score.2,0.8,sari-sari store,0.9995798142779106,1,0.1287543462820525
+safety.flood_class_score.2,0.8,general retail,0.9997719005486391,0,0.12060015641633683
+safety.flood_class_score.2,1.2,food stall,0.9998199441826967,0,0.11021925295873118
+safety.flood_class_score.2,1.2,sari-sari store,0.9992676763129302,0,0.12201634085463678
+safety.flood_class_score.2,1.2,general retail,0.9997839057829212,0,0.11429448094484701
+safety.flood_class_score.3,0.8,food stall,1.0,0,0.0
+safety.flood_class_score.3,0.8,sari-sari store,0.9999999999999999,0,0.0
+safety.flood_class_score.3,0.8,general retail,0.9999999999999999,0,0.0
+safety.flood_class_score.3,1.2,food stall,1.0,0,0.0
+safety.flood_class_score.3,1.2,sari-sari store,0.9999999999999999,0,0.0
+safety.flood_class_score.3,1.2,general retail,0.9999999999999999,0,0.0
+safety.waterway_near_m,0.8,food stall,0.9999879962788465,0,0.003546713685581153
+safety.waterway_near_m,0.8,sari-sari store,0.9999999999999999,0,0.003427240483092291
+safety.waterway_near_m,0.8,general retail,0.9999999999999999,0,0.003190543621064492
+safety.waterway_near_m,1.2,food stall,0.999975992557693,0,0.020177763382606243
+safety.waterway_near_m,1.2,sari-sari store,0.9999279681619274,0,0.0219413147699402
+safety.waterway_near_m,1.2,general retail,0.9999279685943071,0,0.02218409762263004
+safety.waterway_penalty,0.8,food stall,1.0,0,0.0
+safety.waterway_penalty,0.8,sari-sari store,0.9999999999999999,0,0.0
+safety.waterway_penalty,0.8,general retail,0.9999999999999999,0,0.0
+safety.waterway_penalty,1.2,food stall,1.0,0,0.0
+safety.waterway_penalty,1.2,sari-sari store,0.9999999999999999,0,0.0
+safety.waterway_penalty,1.2,general retail,0.9999999999999999,0,0.0
+safety.flood_event_penalty,0.8,food stall,0.9999639888365395,0,0.02391176983244929
+safety.flood_event_penalty,0.8,sari-sari store,0.9999279681619274,0,0.02614925512325019
+safety.flood_event_penalty,0.8,general retail,0.9999879947657178,0,0.02565037533323217
+safety.flood_event_penalty,1.2,food stall,0.9999039702307716,0,0.02418662803623885
+safety.flood_event_penalty,1.2,sari-sari store,0.9999399734682729,1,0.02644894455106879
+safety.flood_event_penalty,1.2,general retail,0.9999519790628714,0,0.025942174225110824
+safety.flood_event_max,0.8,food stall,1.0,0,0.003138631438113393
+safety.flood_event_max,0.8,sari-sari store,0.9999879946936544,0,0.003517170160451428
+safety.flood_event_max,0.8,general retail,0.9999999999999999,0,0.003453308277641618
+safety.flood_event_max,1.2,food stall,1.0,0,0.0
+safety.flood_event_max,1.2,sari-sari store,0.9999999999999999,0,0.0
+safety.flood_event_max,1.2,general retail,0.9999999999999999,0,0.0
+safety.fault_full_m,0.8,food stall,1.0,0,0.0025641760389151004
+safety.fault_full_m,0.8,sari-sari store,0.9999999999999999,0,0.0032456681635870763
+safety.fault_full_m,0.8,general retail,0.9999999999999999,0,0.0030207804785024805
+safety.fault_full_m,1.2,food stall,1.0,0,0.0034928652023843653
+safety.fault_full_m,1.2,sari-sari store,0.9999999999999999,0,0.004282733571056525
+safety.fault_full_m,1.2,general retail,0.9999999999999999,0,0.003952150965049199
+safety.liquefaction_score.0,0.8,food stall,0.9999519851153859,1,0.10067156991530879
+safety.liquefaction_score.0,0.8,sari-sari store,0.9997839044857826,1,0.1066240910904509
+safety.liquefaction_score.0,0.8,general retail,0.9999039581257427,0,0.10705655023981475
+safety.liquefaction_score.0,1.2,food stall,0.9998319479038502,0,0.09879411261406307
+safety.liquefaction_score.0,1.2,sari-sari store,0.9999039575492368,0,0.10463521021612682
+safety.liquefaction_score.0,1.2,general retail,0.9995077853944319,0,0.10506704136779497
+safety.liquefaction_score.1,0.8,food stall,0.9998799627884645,0,0.031172719440547746
+safety.liquefaction_score.1,0.8,sari-sari store,0.9999639840809637,0,0.035605894785197274
+safety.liquefaction_score.1,0.8,general retail,0.9999639842971535,0,0.03352253626127531
+safety.liquefaction_score.1,1.2,food stall,0.9999639888365395,0,0.030648346210396013
+safety.liquefaction_score.1,1.2,sari-sari store,0.9996038248906015,0,0.035006824277512935
+safety.liquefaction_score.1,1.2,general retail,0.9999759895314356,0,0.032961482695917255
+safety.liquefaction_score.2,0.8,food stall,1.0,0,0.007284088005754832
+safety.liquefaction_score.2,0.8,sari-sari store,0.9999999999999999,0,0.007236537710909836
+safety.liquefaction_score.2,0.8,general retail,0.9999879947657178,0,0.006800469937249432
+safety.liquefaction_score.2,1.2,food stall,1.0,0,0.0072169447982665955
+safety.liquefaction_score.2,1.2,sari-sari store,0.9998619309050254,0,0.006409451228319014
+safety.liquefaction_score.2,1.2,general retail,0.9999159598286497,0,0.005976895844266999
+safety.emergency_full_m.police,0.8,food stall,0.9999399813942322,0,0.015108233991718265
+safety.emergency_full_m.police,0.8,sari-sari store,0.9999519787746183,0,0.016734746014551653
+safety.emergency_full_m.police,0.8,general retail,0.9999879947657178,0,0.015750145067964353
+safety.emergency_full_m.police,1.2,food stall,1.0,0,0.014178828791476477
+safety.emergency_full_m.police,1.2,sari-sari store,0.9999879946936544,0,0.01582955223009165
+safety.emergency_full_m.police,1.2,general retail,0.9999879947657178,0,0.015132888857409625
+safety.emergency_full_m.fire,0.8,food stall,1.0,0,0.03274179123995026
+safety.emergency_full_m.fire,0.8,sari-sari store,0.9999519787746183,0,0.034575125445727155
+safety.emergency_full_m.fire,0.8,general retail,0.9999759895314356,0,0.033594623620809116
+safety.emergency_full_m.fire,1.2,food stall,0.9999519851153859,0,0.029186652969190555
+safety.emergency_full_m.fire,1.2,sari-sari store,0.9995137477594617,0,0.030827257851945476
+safety.emergency_full_m.fire,1.2,general retail,0.9999159598286497,0,0.030358731818380953
+safety.emergency_full_m.hospital,0.8,food stall,0.9999399813942322,0,0.038560940164199524
+safety.emergency_full_m.hospital,0.8,sari-sari store,0.9999519787746183,0,0.04055515708268213
+safety.emergency_full_m.hospital,0.8,general retail,0.9999639842971535,0,0.0388427936125246
+safety.emergency_full_m.hospital,1.2,food stall,0.9999879962788465,0,0.030318858661636094
+safety.emergency_full_m.hospital,1.2,sari-sari store,0.9995017414440974,0,0.03130330449984598
+safety.emergency_full_m.hospital,1.2,general retail,0.9999159598286497,0,0.03039057661910313
+safety.sub_weights.flood,0.8,food stall,0.9996398883653932,0,0.15641661983708277
+safety.sub_weights.flood,0.8,sari-sari store,0.9995137477594617,1,0.16022866268312735
+safety.sub_weights.flood,0.8,general retail,0.9996998474494496,0,0.15551839869627876
+safety.sub_weights.flood,1.2,food stall,0.9997599255769289,0,0.13584535297146774
+safety.sub_weights.flood,1.2,sari-sari store,0.9993036922319664,1,0.14428684178244097
+safety.sub_weights.flood,1.2,general retail,0.9998439319543319,1,0.14015803423283288
+safety.sub_weights.crime,0.8,food stall,0.9998799627884645,0,0.08680102222588915
+safety.sub_weights.crime,0.8,sari-sari store,0.9995558036652199,0,0.09530052500035321
+safety.sub_weights.crime,0.8,general retail,0.9998919528914606,0,0.0922322655240285
+safety.sub_weights.crime,1.2,food stall,0.9999039702307716,0,0.0826915212327519
+safety.sub_weights.crime,1.2,sari-sari store,0.9996698298591971,0,0.09032270899428234
+safety.sub_weights.crime,1.2,general retail,0.9998199098823386,0,0.08739182738003393
+safety.sub_weights.light,0.8,food stall,0.999867959067311,0,0.078826933491554
+safety.sub_weights.light,0.8,sari-sari store,0.9994837718271475,1,0.08199709034676098
+safety.sub_weights.light,0.8,general retail,0.9999159633600249,0,0.07998222768445054
+safety.sub_weights.light,1.2,food stall,0.9998799627884645,0,0.0719283269828497
+safety.sub_weights.light,1.2,sari-sari store,0.9996698298591971,0,0.07109087769219727
+safety.sub_weights.light,1.2,general retail,0.999879941098783,0,0.06925753677168356
+safety.sub_weights.quake,0.8,food stall,0.9999279776730787,0,0.09467153348245506
+safety.sub_weights.quake,0.8,sari-sari store,0.9999519787746183,1,0.10012644475502774
+safety.sub_weights.quake,0.8,general retail,0.9999399738285891,0,0.09777859763930337
+safety.sub_weights.quake,1.2,food stall,0.9999639888365395,0,0.08780688987124317
+safety.sub_weights.quake,1.2,sari-sari store,0.9994777288133689,0,0.091187432108317
+safety.sub_weights.quake,1.2,general retail,0.9998679348554941,0,0.08902420947480852
+safety.sub_weights.emerg,0.8,food stall,0.9999159739519252,0,0.07925799239532459
+safety.sub_weights.emerg,0.8,sari-sari store,0.9994657224980046,0,0.08501093038057551
+safety.sub_weights.emerg,0.8,general retail,0.9999039535853609,0,0.08526516154580634
+safety.sub_weights.emerg,1.2,food stall,0.9999639888365395,1,0.07705738848501188
+safety.sub_weights.emerg,1.2,sari-sari store,0.9999279681619274,1,0.08304841543859581
+safety.sub_weights.emerg,1.2,general retail,0.9999519790628714,0,0.08330668845803511
+safety.high_flood_cap,0.8,food stall,0.9999639888365395,0,0.033709441545540425
+safety.high_flood_cap,0.8,sari-sari store,0.999915962855582,0,0.032418925350057
+safety.high_flood_cap,0.8,general retail,0.9999039581257427,1,0.031269256846014136
+safety.high_flood_cap,1.2,food stall,1.0,0,0.003713101707283144
+safety.high_flood_cap,1.2,sari-sari store,0.9999999999999999,0,0.0036537470351900936
+safety.high_flood_cap,1.2,general retail,0.9999879947657178,0,0.0035069599157201738
