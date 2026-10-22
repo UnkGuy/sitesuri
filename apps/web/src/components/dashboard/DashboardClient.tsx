@@ -26,6 +26,7 @@ import {
 import MapWorkspace, { type GeoPoint } from "./MapWorkspace";
 import DashboardSidebar from "./DashboardSidebar";
 import CustomSelect from "@/components/ui/CustomSelect";
+import AccountMenu from "./AccountMenu";
 
 type PlaceResult = { id: string; name: string; lat: number; lng: number };
 const initialPoint: GeoPoint = { lat: 14.5995, lng: 120.9842 }; // Manila center, not a scored candidate.
@@ -169,15 +170,9 @@ function DashboardContent() {
               </p>
             </div>
           </div>
-          <div className="flex shrink-0 items-center gap-3">
-            <span className="hidden max-w-48 truncate text-right text-sm font-semibold text-[#435149] sm:block">
-              {isLoaded
-                ? user?.firstName ||
-                  user?.primaryEmailAddress?.emailAddress ||
-                  "Member"
-                : "Loading..."}
-            </span>
-            <UserButton />
+
+          <div className="flex items-center gap-3">
+            <AccountMenu />
           </div>
         </div>
       </header>
