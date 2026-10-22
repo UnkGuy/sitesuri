@@ -5,6 +5,8 @@ import { redirect } from "next/navigation";
 import AuthShell from "@/components/auth/AuthShell";
 import CustomSignUp from "@/components/auth/CustomSignUp";
 
+import AuthLoading from "@/components/auth/AuthLoading";
+
 async function SignUpContent() {
   const { userId } = await auth();
 
@@ -22,7 +24,7 @@ async function SignUpContent() {
 
 export default function SignUpPage() {
   return (
-    <Suspense fallback={<div>Loading sign-up...</div>}>
+    <Suspense fallback={<AuthLoading mode="sign-up" />}>
       <SignUpContent />
     </Suspense>
   );

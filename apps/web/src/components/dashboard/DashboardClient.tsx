@@ -73,7 +73,9 @@ function DashboardContent() {
     setSearching(true);
     try {
       const url = `https://api.maptiler.com/geocoding/${encodeURIComponent(query)}.json?key=${encodeURIComponent(key)}&country=ph&limit=5`;
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        signal: AbortSignal.timeout(7000),
+      });
       if (!response.ok) throw new Error("Search is currently unavailable.");
       const data: {
         features?: Array<{
@@ -94,9 +96,14 @@ function DashboardContent() {
       if (!candidates.length)
         setSearchMessage("No matching Philippine locations were found.");
     } catch (error) {
-      setSearchMessage(
-        error instanceof Error ? error.message : "Unable to search addresses.",
-      );
+      if (
+        error instanceof DOMException &&
+        (error.name === "TimeoutError" || error.name === "AbortError")
+      ) {
+        setSearchMessage("Location search timed out. Please try again.");
+      } else {
+        setSearchMessage("Unable to search locations right now.");
+      }
     } finally {
       setSearching(false);
     }

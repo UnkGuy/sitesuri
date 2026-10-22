@@ -130,10 +130,6 @@ export default function CustomSignIn() {
         supportsEmailCode ? (
           <form onSubmit={verifyDevice} className="space-y-5">
             <div className="space-y-3">
-              <label className="block text-sm font-semibold text-brand-black">
-                Verification code
-              </label>
-
               <VerificationCodeInput
                 id="login-code"
                 value={code}

@@ -5,6 +5,8 @@ import { redirect } from "next/navigation";
 import AuthShell from "@/components/auth/AuthShell";
 import CustomSignIn from "@/components/auth/CustomSignIn";
 
+import AuthLoading from "@/components/auth/AuthLoading";
+
 async function SignInContent() {
   const { userId } = await auth();
 
@@ -22,7 +24,7 @@ async function SignInContent() {
 
 export default function SignInPage() {
   return (
-    <Suspense fallback={<div>Loading sign-in...</div>}>
+    <Suspense fallback={<AuthLoading mode="sign-in" />}>
       <SignInContent />
     </Suspense>
   );
