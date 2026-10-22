@@ -5,6 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.routers import users
 
+from app.routers.locations import router as locations_router
+from app.routers.analyses import router as analyses_router
 
 app = FastAPI(
     title="SiteSuri API",
@@ -21,7 +23,8 @@ app.add_middleware(
 )
 
 app.include_router(users.router)
-
+app.include_router(locations_router)
+app.include_router(analyses_router)
 
 @app.get("/health", tags=["Health"])
 def health_check():
