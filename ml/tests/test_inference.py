@@ -4,10 +4,10 @@ import pandas as pd
 import pytest
 
 from sitesuri_ml import OutsideCoverageError, ScoringService, UnknownBusinessTypeError
-from sitesuri_ml.service import DEFAULT_ARTIFACTS
+from sitesuri_ml.inference import DEFAULT_ARTIFACTS
 
 if not (DEFAULT_ARTIFACTS / "scoring_config.json").exists():
-    pytest.skip("no trained artifacts; run: python -m sitesuri_ml.model run --out-dir artifacts", allow_module_level=True)
+    pytest.skip("no trained artifacts; run: python train.py run", allow_module_level=True)
 
 
 @pytest.fixture(scope="module")
@@ -54,3 +54,10 @@ def test_errors(service, site):
         service.score(10.3157, 123.8854, "food stall")  # Cebu City, outside the pilot area
     with pytest.raises(ValueError):
         service.score(site["latitude"], site["longitude"], "food stall", open_hours=(4, 23))
+
+
+def test_sample_sites_are_scoreable(service):
+    sites = service.sample_sites(3)
+    assert len(sites) == 3 and {"location_id", "address", "latitude", "longitude"} <= sites[0].keys()
+    record = service.score(sites[2]["latitude"], sites[2]["longitude"], "general retail")
+    assert record["matched_site"]["location_id"] == sites[2]["location_id"]

@@ -1,15 +1,15 @@
-"""Score one searched location on demand, for the FastAPI backend.
+"""Interface used by FastAPI: score one searched location on demand.
 
     from sitesuri_ml import ScoringService
     service = ScoringService()                      # load once, at app startup
     record = service.score(14.651, 121.049, "sari-sari store")
 
 `score` returns one record in the scores.json format (spec §8.4) plus the matched site and the
-prototype notice. Loading reads the artifacts written by `python -m sitesuri_ml.model run`;
+prototype notice. Loading reads the artifacts written by `python train.py run`;
 scoring one point takes a few milliseconds.
 
 Quick check from the ml/ folder:
-    python -m sitesuri_ml.service --lat 14.651 --lon 121.049 --business-type "sari-sari store"
+    python -m sitesuri_ml.inference --lat 14.651 --lon 121.049 --business-type "sari-sari store"
 """
 
 from __future__ import annotations
@@ -23,9 +23,10 @@ from typing import Iterable
 
 import pandas as pd
 
+from .config import DISCLAIMER, TRAINING_HOURS, PedConfig, load_params, notice_text
 from .features import NearestSiteProvider
-from .model import (DISCLAIMER, TRAINING_HOURS, PedConfig, PedestrianModel, _jsonable, build_record,
-                    compute_site_scores, expected_pedestrians, load_params, notice_text, ped_component)
+from .pedestrian import PedestrianModel, expected_pedestrians, ped_component
+from .scoring import build_record, compute_site_scores, to_jsonable
 
 DEFAULT_ARTIFACTS = Path(os.environ.get("SITESURI_ML_ARTIFACTS", Path(__file__).resolve().parents[1] / "artifacts"))
 
@@ -39,7 +40,7 @@ class ScoringService:
         self.artifacts_dir = Path(artifacts_dir or DEFAULT_ARTIFACTS)
         config_path = self.artifacts_dir / "scoring_config.json"
         if not config_path.exists():
-            raise FileNotFoundError(f"{config_path} not found; train first: python -m sitesuri_ml.model run --out-dir artifacts")
+            raise FileNotFoundError(f"{config_path} not found; train first: python train.py run")
         self.config = json.loads(config_path.read_text(encoding="utf-8"))
         self.params = load_params(self.config["params"])
         schedule = self.config["default_schedule"]
@@ -62,6 +63,14 @@ class ScoringService:
     @property
     def business_types(self) -> list[str]:
         return list(self.config["business_types"])
+
+    def sample_sites(self, limit: int = 20) -> list[dict]:
+        """Sites with data, for a demo picker: location_id, address, latitude, longitude."""
+        table = getattr(self.provider, "locations", None)
+        if table is None:
+            return []
+        rows = table[["location_id", "address", "latitude", "longitude"]].head(max(0, limit))
+        return to_jsonable(rows.to_dict("records"))
 
     def score(self, latitude: float, longitude: float, business_type: str, *,
               open_hours: tuple[int, int] | None = None, open_days: Iterable[int] | None = None,
@@ -92,7 +101,7 @@ class ScoringService:
                               "months": list(month_set)}
         record["notice"] = notice_text(self.config["synthetic"])
         record["disclaimer"] = DISCLAIMER
-        return _jsonable(record)
+        return to_jsonable(record)
 
     @staticmethod
     def _hours(open_hours) -> tuple[int, ...]:

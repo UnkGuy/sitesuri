@@ -1,19 +1,29 @@
 """Example FastAPI endpoints calling the ML package. A starting point for apps/api, not the real API.
 
 Run from the ml/ folder (after `pip install -e ".[api]"`):
-    export NOMINATIM_USER_AGENT="SiteSuri/0.1 (your-team-email@example.com)"
+    export NOMINATIM_USER_AGENT="SiteSuri/0.1 (your-team-email@example.com)"   # enables /map/search
     uvicorn examples.fastapi_endpoint:app --reload
-Then open http://127.0.0.1:8000/docs
+Then open http://127.0.0.1:8000/docs, or the Next.js page at http://localhost:3000/score
 """
 
 import os
 
 from fastapi import FastAPI, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
 
 from sitesuri_ml import (GeocodingError, NominatimClient, OutsideCoverageError, ScoringService,
                          UnknownBusinessTypeError)
 
 app = FastAPI(title="SiteSuri ML example")
+
+# Let the Next.js dev server (another origin) call this API from the browser
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=os.environ.get("SITESURI_CORS_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000").split(","),
+    allow_methods=["GET"],
+    allow_headers=["*"],
+)
+
 service = ScoringService()  # loads the model once, at startup
 user_agent = os.environ.get("NOMINATIM_USER_AGENT")
 geocoder = NominatimClient(user_agent) if user_agent else None
@@ -22,6 +32,12 @@ geocoder = NominatimClient(user_agent) if user_agent else None
 @app.get("/map/business-types")
 def business_types() -> list[str]:
     return service.business_types
+
+
+@app.get("/map/sample-sites")
+def sample_sites(limit: int = Query(20, ge=1, le=100)) -> list[dict]:
+    """Points inside the prototype's coverage, for a demo picker."""
+    return service.sample_sites(limit)
 
 
 @app.get("/map/search")
