@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+# Synthetic training data: regenerate with `python -m sitesuri_ml.model run --out-dir artifacts --data-dir data/synthetic`
+data/

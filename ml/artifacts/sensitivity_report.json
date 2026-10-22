@@ -1,0 +1,389 @@
+{
+  "bands_used": {
+    "note": "placeholder bands, for counting band changes only",
+    "bands": [
+      [
+        70.0,
+        "High"
+      ],
+      [
+        45.0,
+        "Medium"
+      ],
+      [
+        0.0,
+        "Low"
+      ]
+    ]
+  },
+  "parameters_ranked": [
+    {
+      "parameter": "competition.food stall.c_star",
+      "min_spearman": 0.9851017713453792,
+      "max_band_changes": 10,
+      "max_mean_abs_change": 1.7652553222648775
+    },
+    {
+      "parameter": "caps.high_flood_cap",
+      "min_spearman": 0.9860112332400544,
+      "max_band_changes": 9,
+      "max_mean_abs_change": 0.9156187792216238
+    },
+    {
+      "parameter": "competition.general retail.c_star",
+      "min_spearman": 0.9881148180606744,
+      "max_band_changes": 9,
+      "max_mean_abs_change": 1.6933297083861343
+    },
+    {
+      "parameter": "competition.sari-sari store.c_star",
+      "min_spearman": 0.9908255248409534,
+      "max_band_changes": 2,
+      "max_mean_abs_change": 1.3453795907692017
+    },
+    {
+      "parameter": "competition.general retail.sigma_right",
+      "min_spearman": 0.9926047756821973,
+      "max_band_changes": 2,
+      "max_mean_abs_change": 0.8411102835551333
+    },
+    {
+      "parameter": "competition.food stall.sigma_right",
+      "min_spearman": 0.9934432634709478,
+      "max_band_changes": 5,
+      "max_mean_abs_change": 0.6588144206359607
+    },
+    {
+      "parameter": "weights.ped",
+      "min_spearman": 0.9952902641234382,
+      "max_band_changes": 9,
+      "max_mean_abs_change": 1.6942162096381521
+    },
+    {
+      "parameter": "weights.comp",
+      "min_spearman": 0.9959782465154806,
+      "max_band_changes": 7,
+      "max_mean_abs_change": 1.0029899310067514
+    },
+    {
+      "parameter": "competition.sari-sari store.sigma_left",
+      "min_spearman": 0.9973348219913201,
+      "max_band_changes": 2,
+      "max_mean_abs_change": 0.7269361427171817
+    },
+    {
+      "parameter": "competition.sari-sari store.sigma_right",
+      "min_spearman": 0.9974428697484286,
+      "max_band_changes": 1,
+      "max_mean_abs_change": 0.37683930363324636
+    },
+    {
+      "parameter": "weights.walk",
+      "min_spearman": 0.9978750607768633,
+      "max_band_changes": 5,
+      "max_mean_abs_change": 0.6011773630914315
+    },
+    {
+      "parameter": "competition.general retail.sigma_left",
+      "min_spearman": 0.9978990840006241,
+      "max_band_changes": 3,
+      "max_mean_abs_change": 0.7649485862086699
+    },
+    {
+      "parameter": "caps.low_ped_cap",
+      "min_spearman": 0.9979048542313708,
+      "max_band_changes": 5,
+      "max_mean_abs_change": 0.4870761216597682
+    },
+    {
+      "parameter": "walkability.paved",
+      "min_spearman": 0.998060983600386,
+      "max_band_changes": 6,
+      "max_mean_abs_change": 0.6380210214074334
+    },
+    {
+      "parameter": "business_fit.sari-sari store.shop",
+      "min_spearman": 0.99824107833085,
+      "max_band_changes": 3,
+      "max_mean_abs_change": 0.6670088942104769
+    },
+    {
+      "parameter": "walkability.sidewalk",
+      "min_spearman": 0.998451198147405,
+      "max_band_changes": 8,
+      "max_mean_abs_change": 0.7107020637175725
+    },
+    {
+      "parameter": "weights.safety",
+      "min_spearman": 0.9984513154814426,
+      "max_band_changes": 2,
+      "max_mean_abs_change": 0.4324279716714299
+    },
+    {
+      "parameter": "weights.fit",
+      "min_spearman": 0.9985953875889888,
+      "max_band_changes": 6,
+      "max_mean_abs_change": 0.679894693123824
+    },
+    {
+      "parameter": "caps.low_ped_below",
+      "min_spearman": 0.998634400506318,
+      "max_band_changes": 0,
+      "max_mean_abs_change": 0.08337460891168803
+    },
+    {
+      "parameter": "competition.food stall.sigma_left",
+      "min_spearman": 0.9987035981154159,
+      "max_band_changes": 1,
+      "max_mean_abs_change": 0.5478192520665468
+    },
+    {
+      "parameter": "safety.flood_class_score.1",
+      "min_spearman": 0.9987274375273869,
+      "max_band_changes": 3,
+      "max_mean_abs_change": 0.1989356412042553
+    },
+    {
+      "parameter": "safety.flood_class_score.0",
+      "min_spearman": 0.9990395754923675,
+      "max_band_changes": 3,
+      "max_mean_abs_change": 0.3364893069362847
+    },
+    {
+      "parameter": "business_fit.general retail.shop",
+      "min_spearman": 0.999111541528294,
+      "max_band_changes": 3,
+      "max_mean_abs_change": 0.6497461513872267
+    },
+    {
+      "parameter": "business_fit.general retail.office",
+      "min_spearman": 0.9991355540148718,
+      "max_band_changes": 1,
+      "max_mean_abs_change": 0.2529204106834598
+    },
+    {
+      "parameter": "business_fit.sari-sari store.market",
+      "min_spearman": 0.9991535582985338,
+      "max_band_changes": 2,
+      "max_mean_abs_change": 0.30744353882944064
+    },
+    {
+      "parameter": "business_fit.food stall.market",
+      "min_spearman": 0.9992317618461724,
+      "max_band_changes": 1,
+      "max_mean_abs_change": 0.1848978297698847
+    },
+    {
+      "parameter": "safety.flood_class_score.2",
+      "min_spearman": 0.9992676763129302,
+      "max_band_changes": 1,
+      "max_mean_abs_change": 0.1287543462820525
+    },
+    {
+      "parameter": "business_fit.general retail.market",
+      "min_spearman": 0.9992916351776274,
+      "max_band_changes": 3,
+      "max_mean_abs_change": 0.37448613610735904
+    },
+    {
+      "parameter": "walkability.crossing",
+      "min_spearman": 0.9993036922319664,
+      "max_band_changes": 3,
+      "max_mean_abs_change": 0.21884220428561732
+    },
+    {
+      "parameter": "safety.sub_weights.flood",
+      "min_spearman": 0.9993036922319664,
+      "max_band_changes": 1,
+      "max_mean_abs_change": 0.16022866268312735
+    },
+    {
+      "parameter": "business_fit.sari-sari store.office",
+      "min_spearman": 0.9993096403982692,
+      "max_band_changes": 2,
+      "max_mean_abs_change": 0.20522320712015954
+    },
+    {
+      "parameter": "business_fit.general retail.school",
+      "min_spearman": 0.9993997382858927,
+      "max_band_changes": 0,
+      "max_mean_abs_change": 0.15461039869761045
+    },
+    {
+      "parameter": "business_fit.sari-sari store.school",
+      "min_spearman": 0.9994237452954206,
+      "max_band_changes": 2,
+      "max_mean_abs_change": 0.3225368326274127
+    },
+    {
+      "parameter": "safety.sub_weights.emerg",
+      "min_spearman": 0.9994657224980046,
+      "max_band_changes": 1,
+      "max_mean_abs_change": 0.08526516154580634
+    },
+    {
+      "parameter": "geo_floor",
+      "min_spearman": 0.9994717696915855,
+      "max_band_changes": 1,
+      "max_mean_abs_change": 0.2939183699646524
+    },
+    {
+      "parameter": "safety.sub_weights.quake",
+      "min_spearman": 0.9994777288133689,
+      "max_band_changes": 1,
+      "max_mean_abs_change": 0.10012644475502774
+    },
+    {
+      "parameter": "safety.sub_weights.light",
+      "min_spearman": 0.9994837718271475,
+      "max_band_changes": 1,
+      "max_mean_abs_change": 0.08199709034676098
+    },
+    {
+      "parameter": "safety.emergency_full_m.hospital",
+      "min_spearman": 0.9995017414440974,
+      "max_band_changes": 0,
+      "max_mean_abs_change": 0.04055515708268213
+    },
+    {
+      "parameter": "safety.liquefaction_score.0",
+      "min_spearman": 0.9995077853944319,
+      "max_band_changes": 1,
+      "max_mean_abs_change": 0.10705655023981475
+    },
+    {
+      "parameter": "safety.emergency_full_m.fire",
+      "min_spearman": 0.9995137477594617,
+      "max_band_changes": 0,
+      "max_mean_abs_change": 0.034575125445727155
+    },
+    {
+      "parameter": "business_fit.food stall.shop",
+      "min_spearman": 0.9995198511538578,
+      "max_band_changes": 7,
+      "max_mean_abs_change": 0.6593738990044161
+    },
+    {
+      "parameter": "business_fit.food stall.office",
+      "min_spearman": 0.9995198511538578,
+      "max_band_changes": 3,
+      "max_mean_abs_change": 0.37549142786896234
+    },
+    {
+      "parameter": "safety.sub_weights.crime",
+      "min_spearman": 0.9995558036652199,
+      "max_band_changes": 0,
+      "max_mean_abs_change": 0.09530052500035321
+    },
+    {
+      "parameter": "safety.liquefaction_score.1",
+      "min_spearman": 0.9996038248906015,
+      "max_band_changes": 0,
+      "max_mean_abs_change": 0.035605894785197274
+    },
+    {
+      "parameter": "business_fit.food stall.school",
+      "min_spearman": 0.9996999069711611,
+      "max_band_changes": 2,
+      "max_mean_abs_change": 0.325964155360993
+    },
+    {
+      "parameter": "safety.liquefaction_score.2",
+      "min_spearman": 0.9998619309050254,
+      "max_band_changes": 0,
+      "max_mean_abs_change": 0.007284088005754832
+    },
+    {
+      "parameter": "safety.high_flood_cap",
+      "min_spearman": 0.9999039581257427,
+      "max_band_changes": 1,
+      "max_mean_abs_change": 0.033709441545540425
+    },
+    {
+      "parameter": "safety.flood_event_penalty",
+      "min_spearman": 0.9999039702307716,
+      "max_band_changes": 1,
+      "max_mean_abs_change": 0.02644894455106879
+    },
+    {
+      "parameter": "safety.waterway_near_m",
+      "min_spearman": 0.9999279681619274,
+      "max_band_changes": 0,
+      "max_mean_abs_change": 0.02218409762263004
+    },
+    {
+      "parameter": "safety.emergency_full_m.police",
+      "min_spearman": 0.9999399813942322,
+      "max_band_changes": 0,
+      "max_mean_abs_change": 0.016734746014551653
+    },
+    {
+      "parameter": "safety.flood_event_max",
+      "min_spearman": 0.9999879946936544,
+      "max_band_changes": 0,
+      "max_mean_abs_change": 0.003517170160451428
+    },
+    {
+      "parameter": "caps.crowded_comp_below",
+      "min_spearman": 0.9999999999999999,
+      "max_band_changes": 0,
+      "max_mean_abs_change": 0.0
+    },
+    {
+      "parameter": "caps.seismic_fault_m",
+      "min_spearman": 0.9999999999999999,
+      "max_band_changes": 0,
+      "max_mean_abs_change": 0.0
+    },
+    {
+      "parameter": "safety.fault_full_m",
+      "min_spearman": 0.9999999999999999,
+      "max_band_changes": 0,
+      "max_mean_abs_change": 0.004282733571056525
+    },
+    {
+      "parameter": "safety.flood_class_score.3",
+      "min_spearman": 0.9999999999999999,
+      "max_band_changes": 0,
+      "max_mean_abs_change": 0.0
+    },
+    {
+      "parameter": "safety.waterway_penalty",
+      "min_spearman": 0.9999999999999999,
+      "max_band_changes": 0,
+      "max_mean_abs_change": 0.0
+    }
+  ],
+  "s_fit_overlap_spearman": {
+    "food stall": {
+      "nearby_school_count": 0.566822019980596,
+      "nearby_market_count": -0.045543938360500615,
+      "nearby_office_count": 0.5392981731080588,
+      "nearby_shop_count": -0.1684693955988129,
+      "nearby_transport_stop_count": 0.07060716188626721,
+      "nearest_transport_distance_m": -0.07575890927859395,
+      "population_density_500m": -0.1953472286840805,
+      "expected_peds_per_hour": 0.049140029493776195
+    },
+    "sari-sari store": {
+      "nearby_school_count": 0.5567345628705679,
+      "nearby_market_count": 0.27694249063007886,
+      "nearby_office_count": 0.4052247374789712,
+      "nearby_shop_count": 0.04398221632509318,
+      "nearby_transport_stop_count": 0.0771077422249558,
+      "nearest_transport_distance_m": -0.12765609232009734,
+      "population_density_500m": -0.10438717231363713,
+      "expected_peds_per_hour": 0.15572404177088228
+    },
+    "general retail": {
+      "nearby_school_count": 0.1341468383878292,
+      "nearby_market_count": 0.44968621339771675,
+      "nearby_office_count": 0.6466985802781049,
+      "nearby_shop_count": 0.23777867888980497,
+      "nearby_transport_stop_count": 0.25063205126587285,
+      "nearest_transport_distance_m": -0.23759331887109833,
+      "population_density_500m": -0.2699254224593454,
+      "expected_peds_per_hour": 0.4101688914531349
+    }
+  }
+}

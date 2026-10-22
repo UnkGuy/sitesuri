@@ -1,0 +1,171 @@
+{
+  "spec": "model_architecture_v2.md, revision 2 (22 Oct 2026)",
+  "trained_utc": "2026-10-22T16:20:32+00:00",
+  "source_type": "synthetic",
+  "synthetic": true,
+  "model": {
+    "file": "pedestrian_model.json",
+    "objective": "count:poisson",
+    "features": [
+      "hour",
+      "day_of_week",
+      "is_weekend",
+      "is_payday_window",
+      "rainfall_mm",
+      "location_type",
+      "nearby_school_count",
+      "nearby_market_count",
+      "nearby_office_count",
+      "nearby_shop_count",
+      "nearby_transport_stop_count",
+      "nearest_transport_distance_m",
+      "population_density_500m"
+    ],
+    "use_congestion": false,
+    "monotone_rain": false,
+    "seed": 42
+  },
+  "pedestrian_scaling": {
+    "P_lo": 31.73457473192033,
+    "P_hi": 283.4965887385662,
+    "scale": "linear"
+  },
+  "range_ratio_quantiles": [
+    0.6945128204259725,
+    1.395414412604695
+  ],
+  "default_schedule": {
+    "open_days": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "open_hours": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19
+    ],
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ]
+  },
+  "business_types": [
+    "food stall",
+    "sari-sari store",
+    "general retail"
+  ],
+  "params": {
+    "weights": {
+      "ped": 0.3,
+      "fit": 0.2,
+      "comp": 0.2,
+      "walk": 0.15,
+      "safety": 0.15
+    },
+    "geo_floor": 5.0,
+    "caps": {
+      "low_ped_below": 20.0,
+      "low_ped_cap": 50.0,
+      "high_flood_cap": 55.0,
+      "seismic_fault_m": 100.0,
+      "crowded_comp_below": 20.0
+    },
+    "business_fit": {
+      "food stall": {
+        "school": 0.3,
+        "market": 0.15,
+        "office": 0.35,
+        "shop": 0.2
+      },
+      "sari-sari store": {
+        "school": 0.2,
+        "market": 0.2,
+        "office": 0.15,
+        "shop": 0.45
+      },
+      "general retail": {
+        "school": 0.1,
+        "market": 0.25,
+        "office": 0.2,
+        "shop": 0.45
+      }
+    },
+    "competition": {
+      "food stall": {
+        "c_star": 4.0,
+        "sigma_left": 3.5,
+        "sigma_right": 2.0
+      },
+      "sari-sari store": {
+        "c_star": 3.0,
+        "sigma_left": 3.0,
+        "sigma_right": 1.8
+      },
+      "general retail": {
+        "c_star": 3.0,
+        "sigma_left": 3.0,
+        "sigma_right": 1.8
+      }
+    },
+    "walkability": {
+      "sidewalk": 50.0,
+      "paved": 30.0,
+      "crossing": 20.0
+    },
+    "safety": {
+      "flood_class_score": {
+        "0": 100.0,
+        "1": 75.0,
+        "2": 40.0,
+        "3": 10.0
+      },
+      "waterway_near_m": 100.0,
+      "waterway_penalty": 15.0,
+      "flood_event_penalty": 5.0,
+      "flood_event_max": 3.0,
+      "fault_full_m": 500.0,
+      "liquefaction_score": {
+        "0": 100.0,
+        "1": 80.0,
+        "2": 30.0
+      },
+      "emergency_full_m": {
+        "police": 1000.0,
+        "fire": 3000.0,
+        "hospital": 3000.0
+      },
+      "sub_weights": {
+        "flood": 0.4,
+        "crime": 0.15,
+        "light": 0.2,
+        "quake": 0.15,
+        "emerg": 0.1
+      },
+      "high_flood_cap": 40.0
+    }
+  }
+}
