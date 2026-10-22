@@ -2,9 +2,9 @@ import { Suspense } from "react";
 import { auth } from "@clerk/nextjs/server";
 
 import DashboardClient from "@/components/dashboard/DashboardClient";
+import DashboardLoading from "@/components/dashboard/DashboardLoading";
 
 async function DashboardContent() {
-  // Protect the dashboard from unauthenticated users.
   await auth.protect();
 
   return <DashboardClient />;
@@ -12,7 +12,7 @@ async function DashboardContent() {
 
 export default function DashboardPage() {
   return (
-    <Suspense fallback={<div>Loading dashboard...</div>}>
+    <Suspense fallback={<DashboardLoading />}>
       <DashboardContent />
     </Suspense>
   );

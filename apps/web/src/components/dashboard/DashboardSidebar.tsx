@@ -79,9 +79,16 @@ export default function DashboardSidebar({
       <aside
         id="sitesuri-sidebar"
         aria-label="SiteSuri workspace navigation"
-        className={`fixed bottom-0 left-0 top-20 z-40 flex flex-col overflow-hidden border-r border-[#E7EBE5] bg-white shadow-lg transition-[width,transform] duration-200 ease-out md:translate-x-0 md:shadow-none ${
-          mobileOpen ? "w-[260px] translate-x-0" : "w-[260px] -translate-x-full"
-        } ${expanded ? "md:w-[248px]" : "md:w-[72px]"}`}
+        className={`
+          fixed bottom-0 left-0 top-20 z-40
+          flex flex-col overflow-hidden
+          border-r border-[#E7EBE5] bg-white shadow-lg
+          transition-transform duration-200 ease-out
+          motion-reduce:transition-none
+          md:translate-x-0 md:shadow-none md:transition-none
+          ${mobileOpen ? "w-[260px] translate-x-0" : "w-[260px] -translate-x-full"}
+          ${expanded ? "md:w-[248px]" : "md:w-[72px]"}
+        `}
       >
         <div className="flex min-h-0 flex-1 flex-col overflow-y-auto py-6">
           <div

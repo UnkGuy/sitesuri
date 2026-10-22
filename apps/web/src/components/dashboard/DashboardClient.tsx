@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { memo, useState, type FormEvent } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { useSiteSuriUser } from "@/features/users/use-user";
@@ -22,7 +22,7 @@ import {
 
 type PlaceResult = { id: string; name: string; lat: number; lng: number };
 const initialPoint: GeoPoint = { lat: 14.5995, lng: 120.9842 }; // Manila center, not a scored candidate.
-
+const MemoizedMapWorkspace = memo(MapWorkspace);
 const BUSINESS_CATEGORY_OPTIONS = [
   { value: "bakery", label: "Bakery" },
   { value: "cafe", label: "Café" },
@@ -159,19 +159,9 @@ function DashboardContent() {
       />
 
       <main
-        className={`min-w-0 transition-[margin-left] duration-200 ease-out ${
+        className={`min-w-0 ${
           sidebarExpanded ? "md:ml-[248px]" : "md:ml-[72px]"
         }`}
-        onTransitionEnd={(event) => {
-          // MapLibre measures its canvas size separately from CSS layout.
-          // Notify it when the sidebar changes the workspace width.
-          if (
-            event.target === event.currentTarget &&
-            event.propertyName === "margin-left"
-          ) {
-            window.dispatchEvent(new Event("resize"));
-          }
-        }}
       >
         <div className="mx-auto max-w-[1600px] space-y-6 p-5 lg:p-9">
           <div className="flex flex-wrap items-end justify-between gap-4">
@@ -339,7 +329,7 @@ function DashboardContent() {
 
             <div className="space-y-5">
               <div className="h-[480px] overflow-hidden rounded-2xl bg-white shadow-sm lg:h-[600px]">
-                <MapWorkspace
+                <MemoizedMapWorkspace
                   point={point}
                   radiusMeters={radius}
                   onPickPoint={setPoint}

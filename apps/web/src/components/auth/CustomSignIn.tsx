@@ -11,6 +11,7 @@ import AuthInput from "./AuthInput";
 import GoogleAuthButton from "./GoogleAuthButton";
 import { clerkErrorMessage } from "@/lib/auth/clerk-error-message";
 import { createInputFilter } from "@/lib/validation/input-filters";
+import VerificationCodeInput from "./VerificationCodeInput";
 
 /** Presentation is custom; passwords, sessions and OAuth stay with Clerk. */
 export default function CustomSignIn() {
@@ -128,23 +129,33 @@ export default function CustomSignIn() {
       {isVerifying ? (
         supportsEmailCode ? (
           <form onSubmit={verifyDevice} className="space-y-5">
-            <AuthInput
-              id="login-code"
-              label="Verification code"
-              autoComplete="one-time-code"
-              inputMode="numeric"
-              value={code}
-              onChange={(event) => setCode(event.target.value)}
-              required
-              error={errors.fields.code?.message}
-            />
+            <div className="space-y-3">
+              <label className="block text-sm font-semibold text-brand-black">
+                Verification code
+              </label>
+
+              <VerificationCodeInput
+                id="login-code"
+                value={code}
+                onChange={setCode}
+                disabled={pending}
+              />
+
+              {errors.fields.code?.message && (
+                <p role="alert" className="text-sm text-red-700">
+                  {errors.fields.code.message}
+                </p>
+              )}
+            </div>
+
             {error && (
               <p role="alert" className="text-sm text-red-700">
                 {error}
               </p>
             )}
             <button
-              disabled={pending}
+              type="submit"
+              disabled={pending || code.length !== 6}
               className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-brand-yellow px-5 text-sm font-extrabold text-brand-black transition hover:bg-[#FDE065] disabled:opacity-60"
             >
               {pending ? (
