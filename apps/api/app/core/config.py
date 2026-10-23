@@ -1,4 +1,3 @@
-
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -8,7 +7,9 @@ class Settings(BaseSettings):
     clerk_secret_key: str
 
     cors_origins: str = (
-        "http://localhost:3000,http://127.0.0.1:3000"
+        "http://localhost:3000,"
+        "http://127.0.0.1:3000,"
+        "https://sitesuri.vercel.app"
     )
 
     model_config = SettingsConfigDict(
