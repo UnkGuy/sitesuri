@@ -28,6 +28,7 @@ import {
 import AnalyticsOverview from "@/components/analytics/AnalyticsOverview";
 import SavedLocationsWorkspace from "@/components/saved-locations/SavedLocationsWorkspace";
 import SavedLocationsAnalytics from "@/components/saved-locations/SavedLocationsAnalytics";
+import CandidateLocationCard from "./CandidateLocationCard";
 import {
   SAVED_LOCATIONS_KEY,
   savedKey,
@@ -146,6 +147,9 @@ function DashboardContent({
   );
   const [selectedLocation, setSelectedLocation] =
     useState<CandidateLocation | null>(null);
+  const [expandedLocationId, setExpandedLocationId] = useState<string | null>(
+    null,
+  );
   const [searchTerm, setSearchTerm] = useState("");
   const [results, setResults] = useState<PlaceResult[]>([]);
   const [searching, setSearching] = useState(false);
@@ -200,6 +204,10 @@ function DashboardContent({
       return {
         ...candidate,
         score: score?.location_score ?? null,
+
+        // Preserve the complete scoring response.
+        scoreDetails: score ?? null,
+
         isLoading: query.isPending,
         isError: query.isError,
       };
@@ -288,6 +296,7 @@ function DashboardContent({
   const handlePickPoint = useCallback((nextPoint: GeoPoint) => {
     setPoint(nextPoint);
     setSelectedLocation(null);
+    setExpandedLocationId(null);
   }, []);
 
   const handleSelectLocation = useCallback(
@@ -296,6 +305,20 @@ function DashboardContent({
     },
     [],
   );
+
+  function handleAnalyzeCandidate(location: CandidateLocation) {
+    if (!appUser || !hasBackend || analysisMutation.isPending) {
+      return;
+    }
+
+    setSelectedLocation(location);
+
+    analysisMutation.mutate({
+      location_id: location.location_id,
+      business_type: category,
+      display_radius_meters: radius,
+    });
+  }
 
   function handleAnalyze() {
     if (!selectedLocation || analysisMutation.isPending || !appUser) return;
@@ -698,89 +721,60 @@ function DashboardContent({
 
                     <div className="mt-4 space-y-3">
                       {rankedCandidates.map((candidate) => {
-                        const level = getSuitabilityLevel(candidate.score);
-                        const style = SUITABILITY_STYLES[level];
-
-                        const scoreText = candidate.isError
-                          ? "Error"
-                          : candidate.isLoading
-                            ? "Loading"
-                            : candidate.score !== null
-                              ? `${candidate.score.toFixed(1)}/100`
-                              : "N/A";
+                        const locationId = candidate.location.location_id;
 
                         const bookmarked = savedByCandidate.get(
-                          savedKey(candidate.location.location_id, category),
+                          savedKey(locationId, category),
                         );
 
                         return (
-                          <div
-                            key={candidate.location.location_id}
-                            className="flex items-center gap-2 rounded-xl border border-[#E5EAE4] p-2 transition hover:border-brand-green"
-                          >
-                            <button
-                              type="button"
-                              onClick={() =>
-                                setSelectedLocation(candidate.location)
-                              }
-                              className="flex min-w-0 flex-1 items-center justify-between gap-3 rounded-lg p-2 text-left"
-                            >
-                              <div className="min-w-0">
-                                <p className="font-semibold">
-                                  {candidate.location.address ??
-                                    candidate.location.source_location_id ??
-                                    "Candidate location"}
-                                </p>
-                                <p className="text-xs text-[#66736B]">
-                                  {Math.round(candidate.distance)} m away
-                                </p>
-                              </div>
-                              <span
-                                className={`shrink-0 rounded-lg px-3 py-2 text-sm font-extrabold ${style.background} ${style.text}`}
-                              >
-                                {scoreText}
-                              </span>
-                            </button>
-
-                            <button
-                              type="button"
-                              title={
-                                bookmarked
-                                  ? "Remove from Saved Locations"
-                                  : "Save location"
-                              }
-                              aria-label={
-                                bookmarked
-                                  ? "Remove from Saved Locations"
-                                  : "Save location"
-                              }
-                              aria-pressed={Boolean(bookmarked)}
-                              disabled={
-                                !appUser ||
-                                !hasBackend ||
-                                bookmarkMutation.isPending ||
-                                savedLocationsQuery.isPending ||
-                                savedLocationsQuery.isError
-                              }
-                              onClick={() =>
-                                bookmarkMutation.mutate({
-                                  locationId: candidate.location.location_id,
-                                  savedId: bookmarked?.id,
-                                })
-                              }
-                              className={`grid size-11 shrink-0 place-items-center rounded-xl border transition disabled:opacity-50 ${
-                                bookmarked
-                                  ? "border-amber-200 bg-[#FFF1AF] text-[#171717]"
-                                  : "border-[#DDE4DC] bg-white text-[#435047] hover:bg-[#F4F7F1]"
-                              }`}
-                            >
-                              {bookmarked ? (
-                                <BookmarkCheck size={19} aria-hidden="true" />
-                              ) : (
-                                <BookmarkPlus size={19} aria-hidden="true" />
-                              )}
-                            </button>
-                          </div>
+                          <CandidateLocationCard
+                            key={locationId}
+                            location={candidate.location}
+                            businessType={category}
+                            distance={candidate.distance}
+                            score={candidate.score}
+                            scoreDetails={candidate.scoreDetails}
+                            isLoading={candidate.isLoading}
+                            isError={candidate.isError}
+                            isSelected={
+                              selectedLocation?.location_id === locationId
+                            }
+                            isExpanded={expandedLocationId === locationId}
+                            bookmarked={Boolean(bookmarked)}
+                            bookmarkPending={bookmarkMutation.isPending}
+                            bookmarkDisabled={
+                              !appUser ||
+                              !hasBackend ||
+                              bookmarkMutation.isPending ||
+                              savedLocationsQuery.isPending ||
+                              savedLocationsQuery.isError
+                            }
+                            analysisDisabled={
+                              !appUser ||
+                              !hasBackend ||
+                              analysisMutation.isPending ||
+                              candidate.isError ||
+                              !candidate.scoreDetails
+                            }
+                            onSelect={() =>
+                              setSelectedLocation(candidate.location)
+                            }
+                            onToggle={() =>
+                              setExpandedLocationId((previous) =>
+                                previous === locationId ? null : locationId,
+                              )
+                            }
+                            onAnalyze={() =>
+                              handleAnalyzeCandidate(candidate.location)
+                            }
+                            onBookmark={() =>
+                              bookmarkMutation.mutate({
+                                locationId,
+                                savedId: bookmarked?.id,
+                              })
+                            }
+                          />
                         );
                       })}
                     </div>
