@@ -160,15 +160,15 @@ SiteSuri is a decision-support platform. Its scores do not guarantee profitabili
 
 - [x] Initialize GitHub repository and development branches
 - [x] Generate Next.js frontend scaffold
-- [ ] Complete and integrate frontend authentication
-- [ ] Finalize responsive landing page and public demo
-- [ ] Implement authenticated dashboard
-- [ ] Integrate interactive maps and geocoding
-- [ ] Develop FastAPI backend
-- [ ] Configure Supabase and PostGIS
-- [ ] Implement geographic suitability scoring
-- [ ] Prepare and validate historical/synthetic datasets
-- [ ] Train and evaluate experimental XGBoost model
+- [x] Complete and integrate frontend authentication
+- [x] Finalize responsive landing page and public demo
+- [x] Implement authenticated dashboard
+- [x] Integrate interactive maps and geocoding
+- [x] Develop FastAPI backend
+- [x] Configure Supabase and PostGIS
+- [x] Implement geographic suitability scoring
+- [x] Prepare and validate historical/synthetic datasets
+- [x] Train and evaluate experimental XGBoost model
 - [ ] Integrate forecasting and analytics
 - [ ] Conduct end-to-end testing
 - [ ] Deploy and finalize the hackathon prototype
