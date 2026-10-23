@@ -16,7 +16,10 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "SiteSuri | Smarter Locations, Better Decisions",
+  title: {
+    default: "SiteSuri",
+    template: "SiteSuri | %s",
+  },
   description:
     "Explore business-location suitability with geographic context, explainable scoring, and experimental activity scenarios. Built for Filipino MSMEs.",
 };

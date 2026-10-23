@@ -2,6 +2,12 @@ import Link from "next/link";
 import { MapPinned } from "lucide-react";
 import CustomForgotPassword from "@/components/auth/CustomForgotPassword";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Forgot Password",
+};
+
 export default function ForgotPasswordPage() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-[#F8F9F7] px-4 py-10 text-brand-black sm:px-6">

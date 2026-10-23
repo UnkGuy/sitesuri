@@ -6,7 +6,11 @@ import AuthShell from "@/components/auth/AuthShell";
 import CustomSignIn from "@/components/auth/CustomSignIn";
 
 import AuthLoading from "@/components/auth/AuthLoading";
+import type { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Login",
+};
 async function SignInContent() {
   const { userId } = await auth();
 

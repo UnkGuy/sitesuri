@@ -1,6 +1,7 @@
 import Link from "next/link";
 import GuestDemo from "@/components/landing/GuestDemo";
 import ScrollToSectionLink from "@/components/ui/ScrollToSectionLink";
+import type { Metadata } from "next";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -39,6 +40,12 @@ const features = [
       "Break down location scores by factor, with data-source labels and missing-data indicators.",
   },
 ];
+
+export const metadata: Metadata = {
+  title: {
+    absolute: "SiteSuri | Home",
+  },
+};
 
 function Brand({ inverted = false }: { inverted?: boolean }) {
   return (

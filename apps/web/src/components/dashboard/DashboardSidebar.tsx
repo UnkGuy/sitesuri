@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useClerk } from "@clerk/nextjs";
 import { useRef, useState } from "react";
+
 import {
   Bookmark,
   ChartNoAxesCombined,
@@ -12,51 +13,72 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
-type DashboardSidebarProps = {
+interface DashboardSidebarProps {
   expanded: boolean;
   mobileOpen: boolean;
   onCloseMobile: () => void;
-};
+  analyticsHref?: string;
+}
 
-type NavigationItem = {
+interface NavigationItem {
   label: string;
   icon: LucideIcon;
   href?: string;
   disabled?: boolean;
-};
+}
 
-const mainItems: NavigationItem[] = [
-  { label: "Location explorer", icon: LayoutDashboard, href: "/dashboard" },
-  { label: "Analytics (soon)", icon: ChartNoAxesCombined, disabled: true },
-  { label: "Saved locations (soon)", icon: Bookmark, disabled: true },
+const navItems: NavigationItem[] = [
+  {
+    label: "Location explorer",
+    icon: LayoutDashboard,
+    href: "/dashboard",
+  },
+  {
+    label: "Analytics",
+    icon: ChartNoAxesCombined,
+    href: "/dashboard/analytics",
+  },
+  {
+    label: "Saved Locations",
+    icon: Bookmark,
+    href: "/dashboard/saved",
+  },
 ];
 
 export default function DashboardSidebar({
   expanded,
   mobileOpen,
   onCloseMobile,
+  analyticsHref,
 }: DashboardSidebarProps) {
   const pathname = usePathname();
   const { signOut } = useClerk();
+
   const [signingOut, setSigningOut] = useState(false);
   const [logoutError, setLogoutError] = useState("");
+
   const logoutDialogRef = useRef<HTMLDialogElement>(null);
   const logoutTriggerRef = useRef<HTMLButtonElement>(null);
 
   function askToLogout() {
     if (signingOut) return;
+
     setLogoutError("");
     logoutDialogRef.current?.showModal();
   }
 
   function cancelLogout() {
-    if (!signingOut) logoutDialogRef.current?.close();
+    if (!signingOut) {
+      logoutDialogRef.current?.close();
+    }
   }
 
   async function handleLogout() {
     if (signingOut) return;
+
     setLogoutError("");
     setSigningOut(true);
+
     try {
       await signOut({ redirectUrl: "/" });
     } catch {
@@ -65,8 +87,13 @@ export default function DashboardSidebar({
     }
   }
 
+  const labelClass = expanded
+    ? "md:max-w-[180px] md:opacity-100"
+    : "md:max-w-0 md:opacity-0";
+
   return (
     <>
+      {/* Mobile backdrop */}
       {mobileOpen && (
         <button
           type="button"
@@ -76,66 +103,117 @@ export default function DashboardSidebar({
         />
       )}
 
+      {/* Sidebar */}
       <aside
         id="sitesuri-sidebar"
         aria-label="SiteSuri workspace navigation"
         className={`
           fixed bottom-0 left-0 top-20 z-40
-          flex flex-col overflow-hidden
-          border-r border-[#E7EBE5] bg-white shadow-lg
-          transition-transform duration-200 ease-out
+          flex w-[260px] shrink-0 flex-col
+          border-r border-[#E7EBE5]
+          bg-white text-sm shadow-lg
+
+          transition-[width,transform]
+          duration-300 ease-in-out
           motion-reduce:transition-none
-          md:translate-x-0 md:shadow-none md:transition-none
-          ${mobileOpen ? "w-[260px] translate-x-0" : "w-[260px] -translate-x-full"}
+
+          md:sticky md:bottom-auto md:top-20
+          md:h-[calc(100dvh-5rem)]
+          md:self-start md:translate-x-0
+          md:shadow-none
+
+          ${mobileOpen ? "translate-x-0" : "-translate-x-full"}
+
           ${expanded ? "md:w-[248px]" : "md:w-[72px]"}
         `}
       >
-        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto py-6">
-          <div
-            className={`mb-3 px-5 text-[11px] font-extrabold uppercase tracking-[0.12em] text-[#7B867D] ${expanded ? "md:block" : "md:sr-only"}`}
-          >
-            Menu
+        {/* Main navigation */}
+        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto px-3 py-8">
+          {/* Menu heading */}
+          <div className="mb-5 h-5 overflow-hidden px-3">
+            <span
+              className={`
+                block whitespace-nowrap
+                text-[11px] font-extrabold
+                uppercase tracking-[0.12em]
+                text-[#7B867D]
+
+                ${expanded ? "md:opacity-100" : "md:opacity-0"}
+              `}
+            >
+              Menu
+            </span>
           </div>
 
-          <nav aria-label="Main navigation" className="space-y-1.5 px-3">
-            {mainItems.map(({ label, icon: Icon, href, disabled }) => {
-              const current = href
-                ? pathname === href || pathname.startsWith(`${href}/`)
-                : false;
-              const itemClass = `flex min-h-11 w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-colors ${
-                current
-                  ? "bg-[#FFF1AF] text-[#171717]"
-                  : disabled
-                    ? "cursor-not-allowed text-[#98A29A]"
-                    : "text-[#435047] hover:bg-[#F4F7F1]"
-              } ${expanded ? "md:justify-start" : "md:justify-center md:px-0"}`;
+          <nav aria-label="Main navigation" className="flex flex-col gap-2">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+
+              const active =
+                item.href === "/dashboard"
+                  ? pathname === "/dashboard"
+                  : Boolean(
+                      item.href &&
+                      (pathname === item.href ||
+                        pathname.startsWith(`${item.href}/`)),
+                    );
+
+              const itemClass = `
+                flex min-h-11 w-full items-center
+                gap-3 overflow-hidden rounded-xl
+                px-3 text-sm font-semibold
+                transition-colors duration-150
+
+                ${
+                  active
+                    ? "bg-[#FFF1AF] text-[#171717]"
+                    : item.disabled
+                      ? "cursor-not-allowed text-[#98A29A]"
+                      : "text-[#435047] hover:bg-[#F4F7F1]"
+                }
+              `;
 
               const content = (
                 <>
                   <Icon size={20} className="shrink-0" aria-hidden="true" />
+
                   <span
-                    className={`truncate ${expanded ? "md:inline" : "md:sr-only"}`}
+                    className={`
+                      max-w-[180px] overflow-hidden
+                      whitespace-nowrap opacity-100
+                      transition-[max-width,opacity]
+                      duration-200 ease-out
+                      ${labelClass}
+                    `}
                   >
-                    {label}
+                    {item.label}
                   </span>
                 </>
               );
 
-              return href && !disabled ? (
-                <Link
-                  key={label}
-                  href={href}
-                  title={label}
-                  aria-current={current ? "page" : undefined}
-                  onClick={onCloseMobile}
-                  className={itemClass}
-                >
-                  {content}
-                </Link>
-              ) : (
+              if (item.href && !item.disabled) {
+                return (
+                  <Link
+                    key={item.label}
+                    href={
+                      item.href === "/dashboard/analytics"
+                        ? (analyticsHref ?? item.href)
+                        : item.href
+                    }
+                    title={item.label}
+                    aria-current={active ? "page" : undefined}
+                    onClick={onCloseMobile}
+                    className={itemClass}
+                  >
+                    {content}
+                  </Link>
+                );
+              }
+
+              return (
                 <span
-                  key={label}
-                  title={label}
+                  key={item.label}
+                  title={item.label}
                   aria-disabled="true"
                   className={itemClass}
                 >
@@ -146,50 +224,79 @@ export default function DashboardSidebar({
           </nav>
         </div>
 
-        <div className="border-t border-[#E7EBE5] p-3">
+        {/* Logout section */}
+        <div className="mt-auto border-t border-[#E7EBE5] bg-white px-3 py-4">
           <button
             type="button"
             ref={logoutTriggerRef}
             onClick={askToLogout}
             disabled={signingOut}
             title="Log out"
-            className={`flex min-h-11 w-full items-center gap-3 rounded-xl px-3 text-sm font-semibold text-[#D12C37] transition hover:bg-red-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D12C37] disabled:opacity-50 ${
-              expanded ? "md:justify-start" : "md:justify-center md:px-0"
-            }`}
+            className="
+              flex min-h-11 w-full items-center
+              gap-3 overflow-hidden rounded-xl
+              px-3 text-sm font-semibold
+              text-[#D12C37]
+              transition-colors duration-150
+              hover:bg-red-50
+              disabled:opacity-50
+            "
           >
-            <LogOut size={20} className="shrink-0" aria-hidden="true" />
-            <span className={expanded ? "md:inline" : "md:sr-only"}>
+            <LogOut size={20} className="shrink-0" />
+
+            <span
+              className={`
+                max-w-[180px] overflow-hidden
+                whitespace-nowrap opacity-100
+                transition-[max-width,opacity]
+                duration-200 ease-out
+                ${labelClass}
+              `}
+            >
               {signingOut ? "Signing out..." : "Log out"}
             </span>
           </button>
         </div>
       </aside>
 
-      {/* Native modal dialog: Escape key, focus containment, and backdrop
-          behavior are provided by the browser's dialog top layer. */}
+      {/* Logout confirmation */}
       <dialog
         ref={logoutDialogRef}
         aria-labelledby="sitesuri-logout-title"
         aria-describedby="sitesuri-logout-description"
-        aria-modal="true"
         onCancel={(event) => {
-          if (signingOut) event.preventDefault();
+          if (signingOut) {
+            event.preventDefault();
+          }
         }}
         onClose={() => {
-          if (!signingOut) logoutTriggerRef.current?.focus();
+          if (!signingOut) {
+            logoutTriggerRef.current?.focus();
+          }
         }}
-        className="m-auto w-[min(92vw,440px)] max-w-none max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-[24px] border border-[#E5EAE3] bg-white p-0 text-[#141414] shadow-2xl backdrop:bg-black/55"
+        className="
+          m-auto w-[min(92vw,440px)]
+          max-h-[calc(100dvh-2rem)]
+          max-w-none overflow-y-auto
+          rounded-[24px] border
+          border-[#E5EAE3]
+          bg-white p-0 text-[#141414]
+          shadow-2xl
+          backdrop:bg-black/55
+        "
       >
         <div className="p-6 sm:p-8">
-          <div className="mb-5 grid size-12 place-items-center rounded-2xl bg-[#FFF1AF] text-[#141414]">
-            <LogOut size={23} aria-hidden="true" />
+          <div className="mb-5 grid size-12 place-items-center rounded-2xl bg-[#FFF1AF]">
+            <LogOut size={23} />
           </div>
+
           <h2
             id="sitesuri-logout-title"
             className="font-display text-2xl font-extrabold tracking-tight"
           >
             Log out of SiteSuri?
           </h2>
+
           <p
             id="sitesuri-logout-description"
             className="mt-3 text-sm leading-6 text-[#65736A]"
@@ -197,6 +304,7 @@ export default function DashboardSidebar({
             You will be signed out of your account and returned to the home
             page.
           </p>
+
           {logoutError && (
             <p
               role="alert"
@@ -205,20 +313,22 @@ export default function DashboardSidebar({
               {logoutError}
             </p>
           )}
+
           <div className="mt-7 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
             <button
               type="button"
               onClick={cancelLogout}
               disabled={signingOut}
-              className="min-h-11 rounded-xl border border-[#DDE4DC] px-5 text-sm font-bold text-[#435047] transition hover:bg-[#F5F7F3] focus-visible:outline-2 focus-visible:outline-brand-green disabled:opacity-50"
+              className="min-h-11 rounded-xl border border-[#DDE4DC] px-5 text-sm font-bold text-[#435047] hover:bg-[#F5F7F3]"
             >
               Cancel
             </button>
+
             <button
               type="button"
               onClick={handleLogout}
               disabled={signingOut}
-              className="min-h-11 rounded-xl bg-[#D12C37] px-5 text-sm font-bold text-white transition hover:bg-[#B92530] focus-visible:outline-2 focus-visible:outline-[#D12C37] disabled:cursor-wait disabled:opacity-60"
+              className="min-h-11 rounded-xl bg-[#D12C37] px-5 text-sm font-bold text-white hover:bg-[#B92530] disabled:opacity-60"
             >
               {signingOut ? "Signing out..." : "Yes, log out"}
             </button>

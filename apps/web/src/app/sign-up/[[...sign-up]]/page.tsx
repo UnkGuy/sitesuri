@@ -6,7 +6,11 @@ import AuthShell from "@/components/auth/AuthShell";
 import CustomSignUp from "@/components/auth/CustomSignUp";
 
 import AuthLoading from "@/components/auth/AuthLoading";
+import type { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Sign In",
+};
 async function SignUpContent() {
   const { userId } = await auth();
 
