@@ -103,21 +103,18 @@ export default function AnalyticsOverview({
             search area.
           </p>
         </div>
-        <label className="text-xs font-bold text-[#4E5B52]">
-          Business category
-          <div className="mt-2 w-full min-w-0 sm:w-[220px]">
-            <CustomSelect
-              id="analytics-business-category"
-              label="Business category"
-              value={category}
-              onValueChange={(value) => onCategoryChange(value as BusinessType)}
-              options={BUSINESS_TYPES.map((item) => ({
-                value: item,
-                label: BUSINESS_LABELS[item],
-              }))}
-            />
-          </div>
-        </label>
+        <div className="mt-2 w-full min-w-0 sm:w-[220px]">
+          <CustomSelect
+            id="analytics-business-category"
+            label="Business category"
+            value={category}
+            onValueChange={(value) => onCategoryChange(value as BusinessType)}
+            options={BUSINESS_TYPES.map((item) => ({
+              value: item,
+              label: BUSINESS_LABELS[item],
+            }))}
+          />
+        </div>
       </div>
 
       <div className="flex flex-wrap items-center gap-x-5 gap-y-2 rounded-xl border border-[#E5EAE4] bg-white px-4 py-3 text-xs text-[#5A6A5E]">

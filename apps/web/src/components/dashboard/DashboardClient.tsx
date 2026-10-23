@@ -22,6 +22,9 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
+import { useRouter } from "next/navigation";
+
+import { formatModelFlag } from "@/features/analyses/candidate-insights";
 
 import { useClerkApi } from "@/lib/api/client";
 import {
@@ -118,6 +121,7 @@ type DashboardClientProps = {
   view?: "explorer" | "analytics" | "saved";
   analyticsMode?: "area" | "saved";
   savedIds?: string[];
+  initialLocationId?: string;
   initialArea?: {
     point: GeoPoint;
     radius: number;
@@ -130,6 +134,7 @@ function DashboardContent({
   analyticsMode = "area",
   savedIds,
   initialArea,
+  initialLocationId,
 }: DashboardClientProps) {
   const {
     user: appUser,
@@ -140,6 +145,7 @@ function DashboardContent({
 
   const api = useClerkApi();
   const queryClient = useQueryClient();
+  const router = useRouter();
 
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
@@ -173,6 +179,28 @@ function DashboardContent({
         (view === "analytics" && analyticsMode === "area")),
     staleTime: 5 * 60 * 1000,
   });
+
+  const initializedLocationRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (
+      view !== "analytics" ||
+      analyticsMode !== "area" ||
+      !initialLocationId ||
+      initializedLocationRef.current === initialLocationId
+    ) {
+      return;
+    }
+
+    const matchingLocation = locationsQuery.data?.find(
+      (location) => location.location_id === initialLocationId,
+    );
+
+    if (!matchingLocation) return;
+
+    setSelectedLocation(matchingLocation);
+    initializedLocationRef.current = initialLocationId;
+  }, [view, analyticsMode, initialLocationId, locationsQuery.data]);
 
   const nearbyCandidates = useMemo(() => {
     const locations = locationsQuery.data ?? [];
@@ -325,17 +353,15 @@ function DashboardContent({
   );
 
   function handleAnalyzeCandidate(location: CandidateLocation) {
-    if (!appUser || !hasBackend || analysisMutation.isPending) {
-      return;
-    }
-
-    setSelectedLocation(location);
-
-    analysisMutation.mutate({
+    const params = new URLSearchParams({
+      lat: String(point.lat),
+      lng: String(point.lng),
+      radius: String(radius),
+      category,
       location_id: location.location_id,
-      business_type: category,
-      display_radius_meters: radius,
     });
+
+    router.push(`/dashboard/analytics?${params.toString()}`);
   }
 
   function handleAnalyze() {
@@ -945,7 +971,9 @@ function DashboardContent({
                           <h4 className="text-sm font-bold">Considerations</h4>
                           <ul className="list-inside list-disc space-y-1 text-sm text-[#4E5B52]">
                             {score.flags.map((flag, index) => (
-                              <li key={`${index}-${flag}`}>{flag}</li>
+                              <li key={`${index}-${flag}`}>
+                                {formatModelFlag(flag)}
+                              </li>
                             ))}
                           </ul>
                         </div>
