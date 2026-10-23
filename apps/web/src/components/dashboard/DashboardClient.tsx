@@ -1,6 +1,14 @@
 "use client";
 
-import { memo, useCallback, useMemo, useState, type FormEvent } from "react";
+import {
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type FormEvent,
+} from "react";
 import {
   getSuitabilityLevel,
   SUITABILITY_STYLES,
@@ -283,6 +291,16 @@ function DashboardContent({
       : null;
 
   const score = activeAnalysis?.score;
+  const analysisResultRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!activeAnalysis?.score) return;
+
+    analysisResultRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, [activeAnalysis]);
   const isCurrentRequest =
     Boolean(selectedLocation) &&
     variables?.location_id === selectedLocation?.location_id &&
@@ -861,8 +879,9 @@ function DashboardContent({
                   </div>
                   {activeAnalysis && score && (
                     <section
+                      ref={analysisResultRef}
                       aria-label="Location suitability analysis"
-                      className="space-y-5 rounded-2xl border border-[#E5EAE4] bg-white p-5 shadow-sm"
+                      className="scroll-mt-24 space-y-5 rounded-2xl border border-[#E5EAE4] bg-white p-5 shadow-sm"
                     >
                       <div className="flex flex-wrap items-start justify-between gap-3">
                         <div>

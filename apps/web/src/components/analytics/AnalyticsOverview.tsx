@@ -22,6 +22,7 @@ import ScoreDistribution from "./ScoreDistribution";
 import CandidateRanking from "./CandidateRanking";
 import DistanceSuitability from "./DistanceSuitability";
 import CategoryComparison from "./CategoryComparison";
+import CustomSelect from "@/components/ui/CustomSelect";
 import ComponentBreakdown from "./ComponentBreakdown";
 
 interface AnalyticsOverviewProps {
@@ -44,12 +45,17 @@ export default function AnalyticsOverview({
   onSelectLocation,
 }: AnalyticsOverviewProps) {
   const summary = useMemo(() => summarizeCandidates(candidates), [candidates]);
-  const scored = useMemo(() => sortedScoredCandidates(candidates), [candidates]);
+  const scored = useMemo(
+    () => sortedScoredCandidates(candidates),
+    [candidates],
+  );
   // Prefer the user's selection if it's still within the active area; otherwise show the top scorer.
-  const selected = candidates.find((item) => item.location.location_id === selectedLocationId)?.location
-    ?? scored[0]?.location
-    ?? candidates[0]?.location
-    ?? null;
+  const selected =
+    candidates.find((item) => item.location.location_id === selectedLocationId)
+      ?.location ??
+    scored[0]?.location ??
+    candidates[0]?.location ??
+    null;
   const selectedId = selected?.location_id ?? "";
 
   // Read-only score queries; do not create /analyses records for chart rendering.
@@ -66,41 +72,68 @@ export default function AnalyticsOverview({
 
   const scores: Partial<Record<BusinessType, LocationScore>> = {};
   BUSINESS_TYPES.forEach((businessType, index) => {
-    const result = categoryQueries[index]?.data?.find((item) => item.business_type === businessType);
+    const result = categoryQueries[index]?.data?.find(
+      (item) => item.business_type === businessType,
+    );
     if (result) scores[businessType] = result;
   });
 
   const currentScore = scores[category] ?? null;
-  const categoryPending = Boolean(selectedId) && categoryQueries.some((query) => query.isPending);
-  const categoryErrors = categoryQueries.filter((query) => query.isError).length;
-  const currentPending = Boolean(selectedId) && (categoryQueries[BUSINESS_TYPES.indexOf(category)]?.isPending ?? false);
+  const categoryPending =
+    Boolean(selectedId) && categoryQueries.some((query) => query.isPending);
+  const categoryErrors = categoryQueries.filter(
+    (query) => query.isError,
+  ).length;
+  const currentPending =
+    Boolean(selectedId) &&
+    (categoryQueries[BUSINESS_TYPES.indexOf(category)]?.isPending ?? false);
 
   return (
     <div className="mx-auto max-w-[1600px] space-y-6 p-5 lg:p-9">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-brand-green">Geographic research</p>
-          <h1 className="font-display mt-2 text-3xl font-extrabold tracking-[-0.04em] sm:text-4xl">Area analytics</h1>
-          <p className="mt-2 text-sm text-[#66736B]">Suitability patterns across candidate sites within your selected search area.</p>
+          <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-brand-green">
+            Geographic research
+          </p>
+          <h1 className="font-display mt-2 text-3xl font-extrabold tracking-[-0.04em] sm:text-4xl">
+            Area analytics
+          </h1>
+          <p className="mt-2 text-sm text-[#66736B]">
+            Suitability patterns across candidate sites within your selected
+            search area.
+          </p>
         </div>
         <label className="text-xs font-bold text-[#4E5B52]">
           Business category
-          <select
-            value={category}
-            onChange={(event) => onCategoryChange(event.target.value as BusinessType)}
-            className="mt-2 block w-full min-w-[200px] rounded-xl border border-[#DDE4DC] bg-white px-3 py-3 text-sm text-[#141414]"
-          >
-            {BUSINESS_TYPES.map((item) => <option key={item} value={item}>{BUSINESS_LABELS[item]}</option>)}
-          </select>
+          <div className="mt-2 w-full min-w-0 sm:w-[220px]">
+            <CustomSelect
+              id="analytics-business-category"
+              label="Business category"
+              value={category}
+              onValueChange={(value) => onCategoryChange(value as BusinessType)}
+              options={BUSINESS_TYPES.map((item) => ({
+                value: item,
+                label: BUSINESS_LABELS[item],
+              }))}
+            />
+          </div>
         </label>
       </div>
 
       <div className="flex flex-wrap items-center gap-x-5 gap-y-2 rounded-xl border border-[#E5EAE4] bg-white px-4 py-3 text-xs text-[#5A6A5E]">
-        <span><strong>Radius:</strong> {radius.toLocaleString()} m</span>
-        <span><strong>Scored:</strong> {summary.scored} of {summary.total}</span>
+        <span>
+          <strong>Radius:</strong> {radius.toLocaleString()} m
+        </span>
+        <span>
+          <strong>Scored:</strong> {summary.scored} of {summary.total}
+        </span>
         {summary.pending > 0 && <span>Loading: {summary.pending}</span>}
-        {summary.failed > 0 && <span className="text-red-700">Failed: {summary.failed}</span>}
-        <span><strong>Category:</strong> {BUSINESS_LABELS[category]}</span>
+        {summary.failed > 0 && (
+          <span className="text-red-700">Failed: {summary.failed}</span>
+        )}
+        <span>
+          <strong>Category:</strong> {BUSINESS_LABELS[category]}
+        </span>
       </div>
 
       <AnalyticsKPIs candidates={candidates} />
@@ -132,11 +165,12 @@ export default function AnalyticsOverview({
       </div>
 
       <p className="rounded-xl border border-[#F1DEA6] bg-[#FFF9E5] p-4 text-xs leading-5 text-[#685721]">
-        These suitability scores are from SiteSuri's synthetic, precomputed prototype data.
-        They are not observed pedestrian counts, measured demand, real-time conditions,
-        or predictions of business revenue. Summary statistics exclude scores that are
-        missing or failed to load; the chosen radius filters candidate locations rather
-        than recomputing the model score.
+        These suitability scores are from SiteSuri's synthetic, precomputed
+        prototype data. They are not observed pedestrian counts, measured
+        demand, real-time conditions, or predictions of business revenue.
+        Summary statistics exclude scores that are missing or failed to load;
+        the chosen radius filters candidate locations rather than recomputing
+        the model score.
       </p>
     </div>
   );

@@ -97,8 +97,10 @@ export default function CandidateLocationCard({
           : "border-[#E5EAE4] hover:border-[#B6C4B7]"
       }`}
     >
-      {/* Collapsed row: short title + area; score below so it never squeezes the name. */}
-      <div className="flex min-w-0 items-stretch gap-2 p-2.5 sm:p-3">
+      {/* Compact summary: location on the left; bookmark and expand actions
+          side by side on the right, with the score centered beneath them. */}
+      <div className="flex min-w-0 items-center gap-2 p-2.5 sm:p-3">
+        {/* Keep the location summary clickable to expand, as before. */}
         <button
           type="button"
           onClick={onToggle}
@@ -107,75 +109,84 @@ export default function CandidateLocationCard({
           aria-label={`${isExpanded ? "Collapse" : "Expand"} details for ${name}`}
           className="min-h-11 min-w-0 flex-1 rounded-lg text-left focus-visible:outline-2 focus-visible:outline-brand-green"
         >
-          <div className="flex min-w-0 items-center gap-1.5">
-            <span
-              className="min-w-0 flex-1 truncate text-[13px] font-bold leading-5 text-[#171717] sm:text-sm"
-              title={name}
-            >
-              {siteTitle}
-            </span>
-            {isExpanded ? (
-              <ChevronUp
-                size={16}
-                className="shrink-0 text-[#66736B]"
-                aria-hidden="true"
-              />
-            ) : (
-              <ChevronDown
-                size={16}
-                className="shrink-0 text-[#66736B]"
-                aria-hidden="true"
-              />
-            )}
-          </div>
+          <span
+            className="block truncate text-[13px] font-bold leading-5 text-[#171717] sm:text-sm"
+            title={name}
+          >
+            {siteTitle}
+          </span>
 
           {areaLabel && (
-            <p
-              className="truncate text-[11px] leading-4 text-[#66736B]"
+            <span
+              className="block truncate text-[11px] leading-4 text-[#66736B]"
               title={areaLabel}
             >
               {areaLabel}
-            </p>
+            </span>
           )}
 
-          <div className="mt-1.5 flex min-w-0 items-center justify-between gap-2">
-            <span className="min-w-0 truncate text-[11px] text-[#66736B]">
-              {Math.round(distance).toLocaleString()} m away
-            </span>
-            <span
-              className={`shrink-0 rounded-md px-2 py-1 text-[11px] font-extrabold tabular-nums ${status.background} ${status.text}`}
+          <span className="mt-1.5 block truncate text-[11px] text-[#66736B]">
+            {Math.round(distance).toLocaleString()} m away
+          </span>
+        </button>
+
+        {/* Small-looking bookmark, full 44px tap target; chevron at far right. */}
+        <div className="flex shrink-0 flex-col items-center gap-0.5">
+          <div className="flex items-center gap-0">
+            <button
+              type="button"
+              onClick={onBookmark}
+              disabled={bookmarkDisabled}
+              aria-label={
+                bookmarked
+                  ? `Remove ${name} from saved locations`
+                  : `Save ${name}`
+              }
+              aria-pressed={bookmarked}
+              title={bookmarked ? "Remove saved location" : "Save location"}
+              className="grid size-11 shrink-0 place-items-center rounded-lg focus-visible:outline-2 focus-visible:outline-brand-green disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {scoreLabel}
-            </span>
-          </div>
-        </button>
+              <span
+                className={`grid size-8 place-items-center rounded-lg border transition-colors ${
+                  bookmarked
+                    ? "border-amber-200 bg-[#FFF1AF] text-[#171717]"
+                    : "border-[#DDE4DC] bg-white text-[#435047] hover:bg-[#F4F7F1]"
+                }`}
+              >
+                {bookmarkPending ? (
+                  <span className="text-xs" aria-hidden="true">
+                    …
+                  </span>
+                ) : bookmarked ? (
+                  <BookmarkCheck size={15} aria-hidden="true" />
+                ) : (
+                  <BookmarkPlus size={15} aria-hidden="true" />
+                )}
+              </span>
+            </button>
 
-        {/* A 44px touch target remains comfortable on mobile. */}
-        <button
-          type="button"
-          onClick={onBookmark}
-          disabled={bookmarkDisabled}
-          aria-label={
-            bookmarked ? `Remove ${name} from saved locations` : `Save ${name}`
-          }
-          aria-pressed={bookmarked}
-          title={bookmarked ? "Remove saved location" : "Save location"}
-          className={`grid size-11 shrink-0 place-items-center self-center rounded-lg border transition-colors focus-visible:outline-2 focus-visible:outline-brand-green disabled:cursor-not-allowed disabled:opacity-50 ${
-            bookmarked
-              ? "border-amber-200 bg-[#FFF1AF] text-[#171717]"
-              : "border-[#DDE4DC] text-[#435047] hover:bg-[#F4F7F1]"
-          }`}
-        >
-          {bookmarkPending ? (
-            <span className="text-xs" aria-hidden="true">
-              …
-            </span>
-          ) : bookmarked ? (
-            <BookmarkCheck size={17} aria-hidden="true" />
-          ) : (
-            <BookmarkPlus size={17} aria-hidden="true" />
-          )}
-        </button>
+            <button
+              type="button"
+              onClick={onToggle}
+              aria-expanded={isExpanded}
+              aria-controls={panelId}
+              aria-label={`${isExpanded ? "Collapse" : "Expand"} details for ${name}`}
+              className="grid size-11 shrink-0 place-items-center rounded-lg text-[#66736B] hover:bg-[#F4F7F1] focus-visible:outline-2 focus-visible:outline-brand-green"
+            >
+              {isExpanded ? (
+                <ChevronUp size={17} aria-hidden="true" />
+              ) : (
+                <ChevronDown size={17} aria-hidden="true" />
+              )}
+            </button>
+          </div>
+
+          <span
+            className={`max-w-full whitespace-nowrap rounded-md px-2 py-1 text-[11px] font-extrabold tabular-nums ${status.background} ${status.text}`}
+          >
+            {scoreLabel}
+          </span>
+        </div>
       </div>
 
       {isExpanded && (
